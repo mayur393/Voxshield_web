@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Products — VoxShield</title>
+  <meta name="description" content="VoxShield Mobile, Console, SDK and Assistant — what each one is, what is built today, and what is still specification." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="icon" type="image/webp" href="assets/logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <script src="main.js" defer></script>
+  <script src="ascii.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared background: one looping video behind every page -->
+  <div class="bg" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <div class="page-header">
+    <header class="header">
+      <a href="index.html" class="logo-btn" aria-label="VoxShield, home">
+        <img src="assets/logo.webp" alt="" width="52" height="52" class="logo-img" />
+      </a>
+
+      <nav class="nav-pill" aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li class="has-menu"><a href="products.html" class="nav-link active" aria-current="page">Products</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Products menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="products.html#mobile">VoxShield Mobile<span>On-device Android detection</span></a><a href="products.html#console">VoxShield Console<span>Detect, decide, respond</span></a><a href="products.html#sdk">VoxShield SDK<span>Planned integration layer</span></a><a href="products.html#assistant">VoxShield Assistant<span>Grounded answers, or none</span></a></div></li>
+          <li><a href="technology.html" class="nav-link">Technology</a></li>
+          <li><a href="benchmarks.html" class="nav-link">Measurements</a></li>
+          <li><a href="security.html" class="nav-link">Security</a></li>
+          <li><a href="sih.html" class="nav-link">SIH</a></li>
+          <li class="has-menu"><a href="docs.html" class="nav-link">Docs</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Docs menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="docs.html#technical">Architecture & pipeline<span>Gate, fusion, verdicts</span></a><a href="docs.html#security">Security & privacy<span>Audit chain, retention</span></a><a href="docs.html#evaluation">Evaluation<span>Measurements and limits</span></a><a href="docs.html#integration">Integration<span>API contract and wire format</span></a><a href="docs.html#project">Project documents<span>PRD, TRD, SIH material</span></a></div></li>
+        </ul>
+      </nav>
+
+      <a href="console.html" class="signin-btn">Console</a>
+
+      <button class="burger-btn" id="burger-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </header>
+  </div>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Products</p>
+          <h1 class="page-title">Four surfaces.<br />One decision layer.</h1>
+          <p class="lead">
+            VoxShield is not a single app. It is a detection core with a decision layer around it, exposed
+            through the surface that fits where the call actually happens. Each card below carries its
+            <span class="annot" data-annot="underline" data-annot-delay="0.5">real build status</span>.
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="technology.html">How detection works</a>
+            <a class="btn btn--ghost" href="benchmarks.html">What was measured</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mobile" aria-labelledby="mobile-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">VoxShield Mobile</p>
+          <h2 class="section-title" id="mobile-title">Capture. Analyse. Protect. <span class="badge badge--built badge--lg">Built</span></h2>
+          <p class="sub">
+            An Android app that checks two things about the voice on the other end: whether it matches what
+            is known about that contact, and whether it shows signs of being AI-generated. Both models run
+            inside the APK.
+          </p>
+        </div>
+
+        <div class="grid grid--3">
+          <article class="card" data-reveal>
+            <span class="card__icon"><i class="fa-solid fa-microchip" aria-hidden="true"></i></span>
+            <h3 class="card__title">Everything in the APK</h3>
+            <p class="card__desc">
+              RawNet2 for synthetic-voice detection and ECAPA-TDNN for speaker verification, both exported
+              to ONNX and run through ONNX Runtime Mobile. No server, no Python process, no network round
+              trip. Installing the app is the whole setup.
+            </p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.06s;">
+            <span class="card__icon"><i class="fa-solid fa-gauge" aria-hidden="true"></i></span>
+            <h3 class="card__title">Live risk, not a verdict at the end</h3>
+            <p class="card__desc">
+              Audio is chunked, silence is rejected, a speaker gate decides whether the chunk is worth
+              scoring, and the risk score is smoothed across chunks before it reaches the on-screen alert.
+            </p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.12s;">
+            <span class="card__icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></span>
+            <h3 class="card__title">Nothing leaves the phone</h3>
+            <p class="card__desc">
+              No audio or detection data leaves the device, which is verifiable with an airplane-mode test.
+              The manifest still declares <span class="mono">INTERNET</span> &mdash; a leftover of an earlier
+              local-loopback design that nothing uses, and removing it is a listed cleanup task.
+            </p>
+          </article>
+        </div>
+
+        <div class="notice notice--warn" data-reveal style="margin-top: 20px;">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>Live-call capture is device dependent, and we say so.</strong> The detection architecture
+            runs end to end, but capturing far-end audio <em>during</em> a live call is an Android
+            audio-policy question, not an app feature. On the one device tested so far (Samsung SM-A166P,
+            Android 16, measured 2026-09-07) the OS silences the app's microphone for the duration of a call.
+            Until a second, non-Samsung device is tested, <strong>post-call recording analysis and test-file
+            mode are the supported paths</strong>.
+          </p>
+        </div>
+
+        <div class="actions" data-reveal>
+          <a class="btn btn--ghost" href="workflow.html">Stage-by-stage walkthrough</a>
+          <a class="btn btn--primary" href="https://github.com/mayur393/Voxshield_web/releases/latest/download/voxshield-mobile.apk" download>Download APK (240 MB, models included)</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="console" aria-labelledby="console-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">VoxShield Console</p>
+          <h2 class="section-title" id="console-title">Detect. Decide. Respond. <span class="badge badge--built badge--lg">Built</span></h2>
+          <p class="sub">
+            The analysis console: one laptop, one process, one GPU worker, zero outbound sockets at runtime.
+            It is where the decision layer actually lives.
+          </p>
+        </div>
+
+        <div class="grid grid--2">
+          <article class="card" data-reveal>
+            <div class="card__head"><h3 class="card__title">What it does today</h3><span class="badge badge--implemented">Implemented</span></div>
+            <p class="card__desc">
+              17 endpoints &mdash; 14 REST and 3 WebSocket &mdash; returning one identical JSON object.
+              A call traces itself from the media stream, a reconnect continues the same call rather than
+              forking it, and every decision lands in a hash-chained audit log you can verify from the
+              Settings view.
+            </p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.06s;">
+            <div class="card__head"><h3 class="card__title">Views</h3><span class="badge badge--implemented">Implemented</span></div>
+            <p class="card__desc">
+              Dashboard, alerts, analytics, reports, settings, system and the Assistant. Call cards render
+              all five verdict states, signal bars are ordered by fusion weight, and the profile selector
+              changes the prescribed action end to end.
+            </p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.12s;">
+            <div class="card__head"><h3 class="card__title">Built the same way as this site</h3><span class="badge badge--implemented">No framework</span></div>
+            <p class="card__desc">
+              Plain HTML, CSS and vanilla JavaScript &mdash; ten JS files, no build step, no CDN, and after
+              the webfont was removed, nothing loaded over the network at all.
+            </p>
+          </article>
+          <article class="card card--muted" data-reveal style="--d: 0.18s;">
+            <div class="card__head"><h3 class="card__title">Enterprise layer</h3><span class="badge badge--wip">Partly built</span></div>
+            <p class="card__desc">
+              Sign-in, roles, sessions and tenant scoping are built. Admin management, mobile ingest,
+              incidents, step-up verification and the mitigation engine are specified and not yet built.
+            </p>
+            <a class="card__link" href="console.html#enterprise">Status table <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          </article>
+        </div>
+
+        <div class="actions" data-reveal>
+          <a class="btn btn--primary" href="console.html">Take the Console tour</a>
+          <a class="btn btn--ghost" href="https://github.com/mayur393/Voxshield_web/releases/latest/download/voxshield-console.zip" download>Download Console (160 MB, models included)</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sdk" aria-labelledby="sdk-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">VoxShield SDK</p>
+          <h2 class="section-title" id="sdk-title">Integrate voice security anywhere <span class="badge badge--planned badge--lg">Planned</span></h2>
+          <p class="sub">
+            The intended path for banks, telecom operators and contact centres that want the check inside
+            their own call flow. <span class="annot annot--warn" data-annot="bracket">It does not exist yet.</span>
+          </p>
+        </div>
+
+        <div class="grid grid--2">
+          <div data-reveal>
+            <pre class="code"><code><span class="c"># Illustrative only — this package and endpoint do not exist.</span>
+<span class="c"># The shape follows the contract the Console already serves.</span>
+
+POST /v1/calls/analyze
+  audio_stream : chunked call audio, 16 kHz mono int16
+  profile      : <span class="s">"high_value_transfer"</span>
+
+<span class="c"># Response — the same object the Console returns today</span>
+{
+  <span class="k">"contract_version"</span>: <span class="s">"1.0"</span>,
+  <span class="k">"verdict"</span>:     <span class="s">"LOW_CONFIDENCE"</span>,
+  <span class="k">"risk"</span>:        null,
+  <span class="k">"risk_range"</span>:  [ 12, 57 ],
+  <span class="k">"is_fake"</span>:     null,
+  <span class="k">"reason_code"</span>: <span class="s">"NO_VALIDATED_SIGNAL"</span>,
+  <span class="k">"action"</span>:      <span class="s">"hold_and_callback"</span>
+}</code></pre>
+          </div>
+          <div class="grid" data-reveal style="--d: 0.06s;">
+            <article class="card card--flat">
+              <h3 class="card__title">What is already decided</h3>
+              <p class="card__desc">
+                The wire contract. Every endpoint in the Console returns one identical JSON object with a
+                <span class="mono">contract_version</span>, and the SDK would wrap exactly that &mdash; which is
+                why the verdict semantics above are real even though the package is not.
+              </p>
+            </article>
+            <article class="card card--flat">
+              <h3 class="card__title">What is not decided</h3>
+              <p class="card__desc">
+                Language, packaging, transport, deployment model and pricing. There is no key, no sandbox,
+                no sign-up and no timeline being promised here.
+              </p>
+            </article>
+            <article class="card card--flat">
+              <div class="card__head"><h3 class="card__title">The honest rule</h3><span class="badge badge--limit">Not claimed</span></div>
+              <p class="card__desc">
+                No integration with a bank, a carrier or a contact-centre platform has ever run. Anything
+                shown at a demo is a local mock, labelled as one.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="assistant" aria-labelledby="assist-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">VoxShield Assistant</p>
+          <h2 class="section-title" id="assist-title">Understand risk. Investigate faster. <span class="badge badge--built badge--lg">Built</span></h2>
+          <p class="sub">
+            An offline assistant inside the Console that answers from the project's own documents &mdash;
+            or refuses. It never generates prose, because a compliance assistant that invents an answer is a
+            liability.
+          </p>
+        </div>
+
+        <div class="grid grid--2">
+          <article class="card" data-reveal>
+            <div class="card__head"><h3 class="card__title">Retrieval, not generation</h3><span class="badge badge--implemented">28 tests</span></div>
+            <p class="card__desc">
+              Pure-Python BM25 over heading-chunked documentation, built at startup, with no new dependency
+              and no model download. It returns a <strong>verbatim passage with a citation</strong> &mdash;
+              file, heading and line numbers &mdash; so the answer is checkable.
+            </p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.06s;">
+            <div class="card__head"><h3 class="card__title">Its own LOW_CONFIDENCE</h3><span class="badge badge--implemented">Implemented</span></div>
+            <p class="card__desc">
+              Below the confidence floor it returns <span class="mono">NO_GROUNDED_ANSWER</span> with the
+              nearest topics instead of a plausible paragraph. The help system refuses to guess, exactly
+              like the detector &mdash; the same principle applied twice.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid grid--3" style="margin-top: 20px;">
+          <article class="card card--flat" data-reveal>
+            <h3 class="card__title">Fraud operator</h3>
+            <p class="card__desc">&ldquo;Why does this call say <span class="mono">NO_VALIDATED_SIGNAL</span>, and what do I do?&rdquo;</p>
+          </article>
+          <article class="card card--flat" data-reveal style="--d: 0.06s;">
+            <h3 class="card__title">Compliance officer</h3>
+            <p class="card__desc">&ldquo;Where is audio stored? Is a voiceprint personal data? What does erasure actually do?&rdquo;</p>
+          </article>
+          <article class="card card--flat" data-reveal style="--d: 0.12s;">
+            <h3 class="card__title">Evaluator</h3>
+            <p class="card__desc">&ldquo;What does <span class="mono">is_fake: null</span> mean, and why did this call get no score?&rdquo;</p>
+          </article>
+        </div>
+
+        <div class="notice" data-reveal style="margin-top: 20px;">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>Conversation history is not built yet.</strong> Persistent chats and grounding over live
+            Console data (calls, risk events, incidents) are specified as the next step, and the rule for it
+            is already written: read only rows the caller's role may see, never across tenants, and never
+            invent a security event.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cta-title">
+      <div class="shell">
+        <div class="cta-band" data-reveal>
+          <p class="eyebrow">Ecosystem</p>
+          <h2 class="section-title" id="cta-title">One thesis, four surfaces</h2>
+          <p class="sub">Detection that reports what it knows, and says so when it does not.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="console.html">Open the Console tour</a>
+            <a class="btn btn--ghost" href="docs.html">Documentation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img src="assets/logo.webp" alt="" width="34" height="34" />
+          <div>
+            <p class="foot-name">VoxShield</p>
+            <p class="foot-tag">Voice-cloning detection that says when it cannot tell.</p>
+          </div>
+        </div>
+        <div class="foot-col"><h3>Product</h3><a href="products.html">Overview</a><a href="products.html#mobile">Mobile</a><a href="console.html">Console</a><a href="products.html#sdk">SDK</a><a href="workflow.html">How a call is checked</a></div>
+        <div class="foot-col"><h3>Technical</h3><a href="technology.html">Detection pipeline</a><a href="technology.html#gate">Precondition gate</a><a href="technology.html#verdicts">Verdict system</a><a href="benchmarks.html">Measurements</a><a href="benchmarks.html#limitations">What we do not claim</a></div>
+        <div class="foot-col"><h3>Project</h3><a href="security.html">Security & privacy</a><a href="docs.html">Documentation</a><a href="components.html">Design system</a><a href="contact.html">Team</a><a href="console.html#access">Console access</a></div>
+      </div>
+      <p class="foot-legal">
+        Team Innovexa &middot; Smart India Hackathon 2026 &middot; PS 26104 &middot; AICTE Cyber Security Cell<br />
+        This website is informational and runs no detection. Every measured number on it is reproducible from
+        <code>benchmarks/results.md</code> in the Console repository; anything not measured is labelled.
+      </p>
+    </div>
+  </footer>
+
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="mobile-sheet" id="mobile-menu" aria-hidden="true" hidden>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="mobile-link" style="--i: 1;">Home</a>
+        <a href="products.html" class="mobile-link active" style="--i: 2;">Products</a>
+        <div class="mobile-group"><h3>Products</h3><a href="products.html#mobile" class="mobile-link" style="--i: 3;">VoxShield Mobile</a><a href="products.html#console" class="mobile-link" style="--i: 4;">VoxShield Console</a><a href="products.html#sdk" class="mobile-link" style="--i: 5;">VoxShield SDK</a><a href="products.html#assistant" class="mobile-link" style="--i: 6;">VoxShield Assistant</a></div>
+        <a href="technology.html" class="mobile-link" style="--i: 7;">Technology</a>
+        <a href="benchmarks.html" class="mobile-link" style="--i: 8;">Measurements</a>
+        <a href="security.html" class="mobile-link" style="--i: 9;">Security</a>
+        <a href="sih.html" class="mobile-link" style="--i: 10;">SIH</a>
+        <a href="docs.html" class="mobile-link" style="--i: 11;">Docs</a>
+        <div class="mobile-group"><h3>Docs</h3><a href="docs.html#technical" class="mobile-link" style="--i: 12;">Architecture & pipeline</a><a href="docs.html#security" class="mobile-link" style="--i: 13;">Security & privacy</a><a href="docs.html#evaluation" class="mobile-link" style="--i: 14;">Evaluation</a><a href="docs.html#integration" class="mobile-link" style="--i: 15;">Integration</a><a href="docs.html#project" class="mobile-link" style="--i: 16;">Project documents</a></div>
+        <a href="console.html" class="mobile-signin" style="--i: 17;">Open Console</a>
+    </nav>
+  </div>
+</body>
+</html>

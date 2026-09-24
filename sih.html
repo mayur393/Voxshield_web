@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>SIH 2026 · PS 26104 — VoxShield | Team Innovexa</title>
+  <meta name="description" content="Smart India Hackathon 2026, Problem Statement 26104: AI-Powered Real-Time Detection and Prevention of Voice Cloning Impersonation Attacks. Theme: Blockchain & Cybersecurity. Category: Software. Team Innovexa — proposed solution, technical approach, feasibility and viability, impact and benefits, research and references." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="icon" type="image/webp" href="assets/logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <script src="main.js" defer></script>
+  <script src="ascii.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared background: one looping video behind every page -->
+  <div class="bg" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <div class="page-header">
+    <header class="header">
+      <a href="index.html" class="logo-btn" aria-label="VoxShield, home">
+        <img src="assets/logo.webp" alt="" width="52" height="52" class="logo-img" />
+      </a>
+
+      <nav class="nav-pill" aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li class="has-menu"><a href="products.html" class="nav-link">Products</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Products menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="products.html#mobile">VoxShield Mobile<span>On-device Android detection</span></a><a href="products.html#console">VoxShield Console<span>Detect, decide, respond</span></a><a href="products.html#sdk">VoxShield SDK<span>Planned integration layer</span></a><a href="products.html#assistant">VoxShield Assistant<span>Grounded answers, or none</span></a></div></li>
+          <li><a href="technology.html" class="nav-link">Technology</a></li>
+          <li><a href="benchmarks.html" class="nav-link">Measurements</a></li>
+          <li><a href="security.html" class="nav-link">Security</a></li>
+          <li><a href="sih.html" class="nav-link active" aria-current="page">SIH</a></li>
+          <li class="has-menu"><a href="docs.html" class="nav-link">Docs</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Docs menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="docs.html#technical">Architecture & pipeline<span>Gate, fusion, verdicts</span></a><a href="docs.html#security">Security & privacy<span>Audit chain, retention</span></a><a href="docs.html#evaluation">Evaluation<span>Measurements and limits</span></a><a href="docs.html#integration">Integration<span>API contract and wire format</span></a><a href="docs.html#project">Project documents<span>PRD, TRD, SIH material</span></a></div></li>
+        </ul>
+      </nav>
+
+      <a href="console.html" class="signin-btn">Console</a>
+
+      <button class="burger-btn" id="burger-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </header>
+  </div>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Smart India Hackathon 2026 &middot; Problem Statement 26104</p>
+          <h1 class="page-title">Six slides,<br />in full</h1>
+          <p class="lead">
+            The official six-slide format &mdash; title, proposed solution, technical approach, feasibility
+            and viability, impact and benefits, research and references &mdash; each carrying the detail a
+            slide cannot hold.
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#s1">Open slide 1</a>
+            <a class="btn btn--ghost" href="index.html#current-stage">Current build stage</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-label="Slide deck">
+      <div class="shell">
+        <nav class="stack-nav" aria-label="Slide navigation">
+          <a href="#s1">1 &middot; Title page</a>
+          <a href="#s2">2 &middot; Proposed solution</a>
+          <a href="#s3">3 &middot; Technical approach</a>
+          <a href="#s4">4 &middot; Feasibility &amp; viability</a>
+          <a href="#s5">5 &middot; Impact &amp; benefits</a>
+          <a href="#s6">6 &middot; Research &amp; references</a>
+        </nav>
+
+        <div class="flipstack" data-flipstack>
+
+          <!-- ============ SLIDE 1 · TITLE PAGE ============ -->
+          <article class="flipstack__card" id="s1" style="--accent: #ffffff;">
+            <div class="slide__head">
+              <span class="slide__num">01</span>
+              <span class="slide__eyebrow">Title page</span>
+            </div>
+            <h2 class="slide__title">VoxShield &mdash; it refuses to guess</h2>
+            <p class="slide__lead">
+              An offline voice-cloning detector that treats &ldquo;I cannot tell&rdquo; as a real answer
+              &mdash; and makes that answer stop a fraudulent transfer just as firmly as a detection would.
+            </p>
+
+            <div class="slide__body">
+              <div class="kv">
+                <div class="kv__item"><span class="kv__k">Problem Statement ID</span><span class="kv__v">26104</span></div>
+                <div class="kv__item"><span class="kv__k">Theme</span><span class="kv__v">Blockchain &amp; Cybersecurity</span></div>
+                <div class="kv__item"><span class="kv__k">PS Category</span><span class="kv__v">Software</span></div>
+                <div class="kv__item" style="grid-column: 1 / -1;"><span class="kv__k">Problem Statement Title</span><span class="kv__v">AI-Powered Real-Time Detection and Prevention of Voice Cloning Impersonation Attacks</span></div>
+                <div class="kv__item"><span class="kv__k">Organisation</span><span class="kv__v">AICTE &mdash; Cyber Security Cell</span></div>
+                <div class="kv__item"><span class="kv__k">Team Name</span><span class="kv__v">Innovexa</span></div>
+                <div class="kv__item"><span class="kv__k">Team ID</span><span class="kv__v"><span class="placeholder">[PLACEHOLDER]</span></span></div>
+              </div>
+
+              <div class="notice" style="margin-top: 18px;">
+                <span class="notice__icon" aria-hidden="true">!</span>
+                <p>
+                  <strong>Copy these fields from the portal character for character.</strong> A theme or
+                  category that does not match the listing is one of the cheapest ways to lose marks, and
+                  no placeholder text should survive into the submitted file.
+                </p>
+              </div>
+            </div>
+
+            <div class="slide__foot">
+              <span>Team Innovexa &middot; SIH 2026 &middot; Software</span>
+              <a class="slide__more" href="contact.html#facts">Project record <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <!-- ============ SLIDE 2 · PROPOSED SOLUTION ============ -->
+          <article class="flipstack__card" id="s2" style="--accent: #f97373;">
+            <div class="slide__head">
+              <span class="slide__num">02</span>
+              <span class="slide__eyebrow">Proposed solution</span>
+            </div>
+            <h2 class="slide__title">The gap is not detection. It is what happens when detection is unsure.</h2>
+
+            <div class="slide__body">
+              <h3 class="sub-title">How the attack runs</h3>
+              <div class="chain">
+                <div class="chain__step"><span class="chain__k">01</span><span class="chain__t">Seconds of real voice</span><span class="chain__d">A voicemail, a reel, a recorded meeting.</span></div>
+                <div class="chain__step"><span class="chain__k">02</span><span class="chain__t">Cloned by generative AI</span><span class="chain__d">Speech in that voice, on demand.</span></div>
+                <div class="chain__step"><span class="chain__k">03</span><span class="chain__t">A trusted person calls</span><span class="chain__d">An executive, an official, a family member.</span></div>
+                <div class="chain__step"><span class="chain__k">04</span><span class="chain__t">Urgency is manufactured</span><span class="chain__d">Do it now, do not check, do not tell anyone.</span></div>
+                <div class="chain__step chain__step--end"><span class="chain__k">05</span><span class="chain__t">Transfer, OTP, access</span><span class="chain__d">Authorised by a voice that was never there.</span></div>
+              </div>
+
+              <figure class="pull" style="margin-top: 20px;">
+                <p>Published work measured a well-known detector at <span class="annot annot--bad" data-annot="underline">3.15% error in the lab and 37.8% on real-world audio</span>. A detector wrong roughly one time in three that still prints &ldquo;SAFE&rdquo; is dangerous inside a bank.</p>
+                <cite>Which is why our claim is the decision layer, not a better detector.</cite>
+              </figure>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Why the existing defences do not close it</h3>
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Approach</th><th scope="col">Voice analysis</th><th scope="col">Works offline</th><th scope="col">Handles uncertainty</th><th scope="col">Drives an action</th><th scope="col">Auditable</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Caller ID</strong></td><td class="cell-bad">No</td><td class="cell-safe">Yes</td><td class="cell-bad">No</td><td class="cell-bad">No</td><td class="cell-bad">No</td></tr>
+                    <tr><td><strong>Manual callback</strong></td><td class="cell-bad">No</td><td class="cell-safe">Yes</td><td class="cell-warn">Human judgement</td><td class="cell-warn">Depends on the person</td><td class="cell-bad">No</td></tr>
+                    <tr><td><strong>Recognising the voice</strong></td><td class="cell-warn">By ear</td><td class="cell-safe">Yes</td><td class="cell-bad">No &mdash; familiarity is the attack</td><td class="cell-bad">No</td><td class="cell-bad">No</td></tr>
+                    <tr><td><strong>Binary deepfake detector</strong></td><td class="cell-safe">Yes</td><td class="cell-warn">Varies</td><td class="cell-bad">Returns &ldquo;safe&rdquo; when unsure</td><td class="cell-bad">Score only</td><td class="cell-warn">Varies</td></tr>
+                    <tr><td><strong>Cloud detection API</strong></td><td class="cell-safe">Yes</td><td class="cell-bad">No &mdash; audio leaves the premises</td><td class="cell-warn">Varies</td><td class="cell-bad">Score only</td><td class="cell-warn">Provider-side</td></tr>
+                    <tr><td><strong>VoxShield</strong></td><td class="cell-safe">Yes</td><td class="cell-safe">Yes &mdash; zero outbound calls at runtime</td><td class="cell-safe">Explicit refusal with a reason code</td><td class="cell-safe">Prescribed action per risk profile</td><td class="cell-safe">Hash-chained log</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">What makes it different &mdash; three things</h3>
+              <div class="grid grid--3">
+                <article class="card card--flat card--static">
+                  <div class="card__head"><h3 class="card__title">The gate runs first</h3><span class="badge badge--implemented">Built</span></div>
+                  <p class="card__desc">If there is too little clear speech or the line is too poor, the model score is never consulted. The answer is <span class="mono">LOW_CONFIDENCE</span>, never <span class="mono">SAFE</span>.</p>
+                </article>
+                <article class="card card--flat card--static">
+                  <div class="card__head"><h3 class="card__title">Uncertainty is a number</h3><span class="badge badge--implemented">Built</span></div>
+                  <p class="card__desc">&ldquo;Risk 55&ndash;90, cannot narrow further: only 1.4 s of clear speech&rdquo; &mdash; not a vague hedge that helps nobody decide.</p>
+                </article>
+                <article class="card card--flat card--static">
+                  <div class="card__head"><h3 class="card__title">Uncertainty has a consequence</h3><span class="badge badge--implemented">Built</span></div>
+                  <p class="card__desc">At high-value transfer and privileged access, a refusal and a detection produce the <strong>same</strong> action: hold and call back.</p>
+                </article>
+              </div>
+
+              <div class="notice notice--key" style="margin-top: 18px;">
+                <span class="notice__icon" aria-hidden="true">!</span>
+                <p>
+                  <strong>The sentence for the slide:</strong> no failure anywhere in this system &mdash; short
+                  audio, a bad line, a model crash, a GPU overload &mdash; can produce a
+                  <span class="mono">SAFE</span> verdict.
+                </p>
+              </div>
+            </div>
+
+            <div class="slide__foot">
+              <span>Detection + decision, not detection alone</span>
+              <a class="slide__more" href="index.html#claim">What we claim, and do not <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <!-- ============ SLIDE 3 · TECHNICAL APPROACH ============ -->
+          <article class="flipstack__card" id="s3" style="--accent: #6c5cff;">
+            <div class="slide__head">
+              <span class="slide__num">03</span>
+              <span class="slide__eyebrow">Technical approach</span>
+            </div>
+            <h2 class="slide__title">Named components, one pipeline, four layers</h2>
+
+            <div class="slide__body">
+              <h3 class="sub-title">The ecosystem</h3>
+              <figure class="circuit" data-circuit data-width="1000" data-height="320" data-pulse-speed="2.4">
+                <script type="application/json">
+                  {
+                    "nodes": [
+                      { "id": "mobile", "x": 110, "y": 70, "label": "VoxShield Mobile", "note": "On-device Android", "icon": "fa-solid fa-mobile-screen", "state": "safe" },
+                      { "id": "console", "x": 110, "y": 175, "label": "VoxShield Console", "note": "Offline laptop", "icon": "fa-solid fa-gauge-high", "state": "safe" },
+                      { "id": "sdk", "x": 110, "y": 275, "label": "SDK", "note": "Planned", "icon": "fa-solid fa-code", "state": "planned" },
+                      { "id": "core", "x": 400, "y": 175, "label": "Detection core", "note": "Gate, signals, fusion", "icon": "fa-solid fa-shield-halved", "state": "gate" },
+                      { "id": "decision", "x": 640, "y": 100, "label": "Decision layer", "note": "Verdict + risk profile", "icon": "fa-solid fa-scale-balanced" },
+                      { "id": "audit", "x": 640, "y": 260, "label": "Audit chain", "note": "Hash-chained, append-only", "icon": "fa-solid fa-link", "state": "safe" },
+                      { "id": "action", "x": 880, "y": 100, "label": "Security action", "note": "Log, hold, block", "icon": "fa-solid fa-triangle-exclamation", "state": "risk" },
+                      { "id": "assistant", "x": 880, "y": 260, "label": "Assistant", "note": "Grounded answers", "icon": "fa-solid fa-comment-dots", "state": "safe" }
+                    ],
+                    "connections": [
+                      { "from": "mobile", "to": "core", "animated": true },
+                      { "from": "console", "to": "core", "animated": true },
+                      { "from": "sdk", "to": "core", "animated": true, "planned": true },
+                      { "from": "core", "to": "decision", "animated": true },
+                      { "from": "core", "to": "audit", "animated": true },
+                      { "from": "decision", "to": "action", "animated": true },
+                      { "from": "audit", "to": "assistant", "animated": true }
+                    ]
+                  }
+                </script>
+                <div class="circuit__legend">
+                  <span><i class="circuit__key" aria-hidden="true"></i> Built</span>
+                  <span><i class="circuit__key circuit__key--gate" aria-hidden="true"></i> Gate &mdash; before any model score is read</span>
+                  <span><i class="circuit__key circuit__key--planned" aria-hidden="true"></i> Planned</span>
+                </div>
+              </figure>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Named technology, with licences</h3>
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Layer</th><th scope="col">Named technology</th><th scope="col">Licence</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Frontend</strong></td><td>Plain HTML, CSS, vanilla JS console &middot; Kotlin + Jetpack Compose on Android</td><td>&mdash;</td></tr>
+                    <tr><td><strong>Serving</strong></td><td>FastAPI + uvicorn, single worker, bound to localhost</td><td>MIT</td></tr>
+                    <tr><td><strong>Storage</strong></td><td>SQLite (WAL), no ORM &middot; on-device SQLite for the app</td><td>Public domain</td></tr>
+                    <tr><td><strong>Voice activity</strong></td><td>Silero VAD (ONNX)</td><td>MIT</td></tr>
+                    <tr><td><strong>Speaker identity</strong></td><td>ECAPA-TDNN &mdash; <span class="mono">speechbrain/spkrec-ecapa-voxceleb</span></td><td>Apache-2.0</td></tr>
+                    <tr><td><strong>Synthesis artefacts</strong></td><td>AASIST (console) &middot; RawNet2 via ONNX Runtime Mobile (app)</td><td>MIT</td></tr>
+                    <tr><td><strong>Language check</strong></td><td>SpeechBrain language-ID model &mdash; routing only, never a coverage claim</td><td>Apache-2.0</td></tr>
+                    <tr><td><strong>Phase + prosody</strong></td><td>librosa + NumPy &mdash; built, measured, deliberately excluded from fusion</td><td>ISC / BSD</td></tr>
+                    <tr><td><strong>Integrity</strong></td><td>SHA-256 hash-chained audit log &middot; SHA-256 model verification at load</td><td>&mdash;</td></tr>
+                    <tr><td><strong>Telephony interface</strong></td><td>SIPREC (RFC 7866) &middot; carrier media-stream WebSocket format</td><td>IETF standard</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Detection pipeline</h3>
+              <div class="flow">
+                <div class="flow__node"><span class="flow__tag">01</span><span class="flow__name">Ingest</span><p class="flow__note">WebSocket or file.</p></div>
+                <div class="flow__node"><span class="flow__tag">02</span><span class="flow__name">16 kHz mono</span><p class="flow__note">Frozen wire format.</p></div>
+                <div class="flow__node"><span class="flow__tag">03</span><span class="flow__name">4 s window</span><p class="flow__note">1 s hop — a verdict a second.</p></div>
+                <div class="flow__node"><span class="flow__tag">04</span><span class="flow__name">Silero VAD</span><p class="flow__note">Speech or silence.</p></div>
+                <div class="flow__node"><span class="flow__tag">05</span><span class="flow__name">Precondition gate</span><p class="flow__note">Before any score.</p></div>
+                <div class="flow__node"><span class="flow__tag">06</span><span class="flow__name">Language check</span><p class="flow__note">Routing only.</p></div>
+                <div class="flow__node"><span class="flow__tag">07</span><span class="flow__name">Validation gate</span><p class="flow__note">Answer only where checked.</p></div>
+                <div class="flow__node"><span class="flow__tag">08</span><span class="flow__name">Signals</span><p class="flow__note">Synthesis + speaker.</p></div>
+                <div class="flow__node"><span class="flow__tag">09</span><span class="flow__name">Fusion</span><p class="flow__note">Weighted, bounded range.</p></div>
+                <div class="flow__node"><span class="flow__tag">10</span><span class="flow__name">Risk 0&ndash;100</span><p class="flow__note">Or a range plus a reason.</p></div>
+                <div class="flow__node"><span class="flow__tag">11</span><span class="flow__name">Verdict</span><p class="flow__note">Five outcomes.</p></div>
+                <div class="flow__node"><span class="flow__tag">12</span><span class="flow__name">Audit, discard</span><p class="flow__note">Window leaves memory.</p></div>
+              </div>
+
+              <div class="grid grid--2" style="margin-top: 22px;">
+                <div>
+                  <h3 class="sub-title">The precondition gate</h3>
+                  <div class="gate">
+                    <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Speech</span><span class="gate__value">&ge; 2.5 s voiced</span></div></div>
+                    <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Line quality</span><span class="gate__value">SNR &ge; 10 dB</span></div></div>
+                    <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Clipping</span><span class="gate__value">&le; 2%</span></div></div>
+                    <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Enrolment</span><span class="gate__value">A voiceprint to compare with</span></div></div>
+                  </div>
+                  <p class="source">Fail any one and the score is never read: <span class="mono">LOW_CONFIDENCE</span> with one of six reason codes.</p>
+                </div>
+
+                <div>
+                  <h3 class="sub-title">Verdict spectrum</h3>
+                  <div class="verdicts">
+                    <div class="verdict verdict--safe"><span class="verdict__name">SAFE</span><span class="verdict__range">0&ndash;39</span></div>
+                    <div class="verdict verdict--suspicious"><span class="verdict__name">SUSPICIOUS</span><span class="verdict__range">40&ndash;69</span></div>
+                    <div class="verdict verdict--high"><span class="verdict__name">HIGH_RISK</span><span class="verdict__range">70&ndash;100</span></div>
+                    <div class="verdict verdict--lowconf"><span class="verdict__name">LOW_CONFIDENCE</span><span class="verdict__range">range + reason</span><span class="verdict__meta"><code>is_fake: null</code> &middot; <strong>not SAFE</strong></span></div>
+                  </div>
+                </div>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Risk profile drives the action</h3>
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Risk profile</th><th scope="col">SUSPICIOUS</th><th scope="col">HIGH_RISK</th><th scope="col">LOW_CONFIDENCE</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Routine enquiry</strong></td><td>Log</td><td>Flag to agent</td><td>Log</td></tr>
+                    <tr><td><strong>Account change</strong></td><td>Flag to agent</td><td>Hold + callback</td><td>Prompt secondary question</td></tr>
+                    <tr><td><strong>High-value transfer</strong></td><td class="cell-warn">Hold + callback</td><td class="cell-bad">Block + escalate</td><td class="cell-warn"><strong>Hold + callback</strong></td></tr>
+                    <tr><td><strong>Privileged access</strong></td><td class="cell-bad">Block + escalate</td><td class="cell-bad">Block + escalate</td><td class="cell-bad"><strong>Block + escalate</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="source">
+                The action is prescribed and displayed today; automated execution &mdash; incidents, step-up
+                verification, alert delivery &mdash; is specified and not yet built, and is labelled that way
+                wherever it is demonstrated.
+              </p>
+            </div>
+
+            <div class="slide__foot">
+              <span>One process &middot; one CUDA context &middot; ~582 MB resident of a 6 GB card</span>
+              <a class="slide__more" href="technology.html">Full technical breakdown <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <!-- ============ SLIDE 4 · FEASIBILITY ============ -->
+          <article class="flipstack__card" id="s4" style="--accent: #fbbf24;">
+            <div class="slide__head">
+              <span class="slide__num">04</span>
+              <span class="slide__eyebrow">Feasibility &amp; viability</span>
+            </div>
+            <h2 class="slide__title">Name the weak points before a juror does</h2>
+            <p class="slide__lead">
+              It is what makes the rest of the deck believable &mdash; and it is exactly what the product
+              itself argues.
+            </p>
+
+            <div class="slide__body">
+              <div class="metrics">
+                <div class="metric"><span class="metric__v">308<small style="font-size:0.5em"> ms</small></span><span class="metric__l">End-to-end check</span><span class="metric__c">RTX 4050 laptop GPU, 4 s window.</span></div>
+                <div class="metric"><span class="metric__v">64</span><span class="metric__l">Calls at once</span><span class="metric__c">0 dropped. Where testing stopped, not where it breaks.</span></div>
+                <div class="metric"><span class="metric__v">0</span><span class="metric__l">Bytes of audio stored</span><span class="metric__c">Not to disk, not to a log, not to a temp file.</span></div>
+                <div class="metric"><span class="metric__v">&#8377;0</span><span class="metric__l">Build cost</span><span class="metric__c">21 dependencies, all permissive, licence-audited in the build.</span></div>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Feasibility on five axes</h3>
+              <div class="kv">
+                <div class="kv__item"><span class="kv__k">Technical</span><span class="kv__v">Pretrained models only &mdash; no training, no fine-tuning, no dataset licensing. ~582 MB resident on a &#8377;60k-class laptop GPU.</span></div>
+                <div class="kv__item"><span class="kv__k">Operational</span><span class="kv__v">Risk profiles, prescribed actions and human review fit an existing fraud-operations workflow.</span></div>
+                <div class="kv__item"><span class="kv__k">Economic</span><span class="kv__v">&#8377;0 total cost. No cloud contract, no per-minute fee, no API key.</span></div>
+                <div class="kv__item"><span class="kv__k">Scalability</span><span class="kv__v">One process, one CUDA context, bounded queue. 64 calls measured; capacity reported as a floor, never a ceiling.</span></div>
+                <div class="kv__item"><span class="kv__k">Privacy</span><span class="kv__v">Memory-only audio, encrypted voiceprints, deployable inside an institution's own perimeter.</span></div>
+                <div class="kv__item"><span class="kv__k">Deployment</span><span class="kv__v">Fully offline after install &mdash; no internet, no account, nothing to provision.</span></div>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Challenge &rarr; engineering response</h3>
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Challenge</th><th scope="col">What it changed in the architecture</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Detectors degrade on real-world audio</strong></td><td>The precondition gate exists because of this. The system degrades to a refusal, never to a confident wrong answer.</td></tr>
+                    <tr><td><strong>A detector may be unreliable on audio it was never tested on</strong></td><td>A validation gate withholds the signal and returns <span class="mono">NO_VALIDATED_SIGNAL</span> rather than reporting a score we do not believe.</td></tr>
+                    <tr><td><strong>Signals can disagree</strong></td><td>A disagreement beyond the threshold is reported as <span class="mono">SIGNAL_DISAGREEMENT</span>, not averaged into a middle number.</td></tr>
+                    <tr><td><strong>Phones block call capture at OS level</strong></td><td>Measured on a real device rather than assumed; the enterprise path attaches to infrastructure the institution already owns (SIPREC or a carrier media stream).</td></tr>
+                    <tr><td><strong>No budget for a telephony account</strong></td><td>Implemented against the documented protocol and tested against a local mock that speaks the same format.</td></tr>
+                    <tr><td><strong>GPU memory is finite</strong></td><td>One process and one CUDA context with a bounded queue &mdash; extra processes would multiply memory and serialise anyway.</td></tr>
+                    <tr><td><strong>A model file could be silently swapped</strong></td><td>Every weight file is pinned by SHA-256 and verified at load; a mismatch aborts startup.</td></tr>
+                    <tr><td><strong>Fusion weights are not calibrated</strong></td><td>Stated openly as a rule of thumb. Calibration with proper cost reporting is named as the next version, not implied as done.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="notice notice--warn" style="margin-top: 18px;">
+                <span class="notice__icon" aria-hidden="true">!</span>
+                <p>
+                  <strong>Compliance position.</strong> The DPDP Rules were notified on 14 November 2025. A
+                  voice embedding that identifies a person is personal data, not anonymised features &mdash;
+                  so voiceprints are encrypted at rest, never returned by any API, and destroyed
+                  cryptographically on erasure, with every creation and deletion audited.
+                </p>
+              </div>
+            </div>
+
+            <div class="slide__foot">
+              <span>351 tests &middot; 91.97% coverage &middot; 15/15 model files verified</span>
+              <a class="slide__more" href="benchmarks.html">Measurements &amp; limits <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <!-- ============ SLIDE 5 · IMPACT ============ -->
+          <article class="flipstack__card" id="s5" style="--accent: #16c89e;">
+            <div class="slide__head">
+              <span class="slide__num">05</span>
+              <span class="slide__eyebrow">Impact &amp; benefits</span>
+            </div>
+            <h2 class="slide__title">Uncertainty becomes a decision instead of a gap</h2>
+
+            <div class="slide__body">
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Who benefits</th><th scope="col">How</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Bank fraud operations</strong></td><td>A live verdict with the reason and a prescribed action &mdash; and a rule for the calls where the system cannot tell.</td></tr>
+                    <tr><td><strong>Customers</strong></td><td>Fewer successful impersonation frauds, and no voice data leaving the institution.</td></tr>
+                    <tr><td><strong>Security architects</strong></td><td>No new capture surface: the enterprise path reads media the session border controller already forks.</td></tr>
+                    <tr><td><strong>Regulators and auditors</strong></td><td>A tamper-evident decision trail where an altered entry is named by the verify step.</td></tr>
+                    <tr><td><strong>Smaller institutions</strong></td><td>&#8377;0 software on commodity hardware &mdash; no cloud contract, no per-minute fee.</td></tr>
+                    <tr><td><strong>Individuals and families</strong></td><td>An on-device warning during the call, when a pause still costs nothing.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Where the impact lands</h3>
+              <div class="grid grid--3">
+                <article class="card card--flat card--static">
+                  <h3 class="card__title">Social</h3>
+                  <p class="card__desc">Protection from impersonation scams for the people targeted most, and a reason to verify that does not depend on suspicion.</p>
+                </article>
+                <article class="card card--flat card--static">
+                  <h3 class="card__title">Economic</h3>
+                  <p class="card__desc">Reduced exposure to fraudulent transfers at the moment of the request, with no recurring licence or cloud cost.</p>
+                </article>
+                <article class="card card--flat card--static">
+                  <h3 class="card__title">Educational</h3>
+                  <p class="card__desc">The method, the failures and the limits are published with the work &mdash; it can be checked, repeated and taught.</p>
+                </article>
+                <article class="card card--flat card--static">
+                  <h3 class="card__title">Technological</h3>
+                  <p class="card__desc">A reusable pattern for high-stakes AI: gate first, refuse explicitly, and give the refusal a consequence.</p>
+                </article>
+                <article class="card card--flat card--static">
+                  <h3 class="card__title">Operational</h3>
+                  <p class="card__desc">Four risk profiles mean a balance enquiry and a large transfer are not held to the same strictness.</p>
+                </article>
+                <article class="card card--muted card--static">
+                  <h3 class="card__title">Environmental</h3>
+                  <p class="card__desc">Inference runs on hardware already owned, with no cloud round trip per call. We claim nothing beyond that, because nothing beyond that has been measured.</p>
+                </article>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Where it is used</h3>
+              <div class="kv">
+                <div class="kv__item"><span class="kv__k">Banking</span><span class="kv__v">A transfer requested by phone &rarr; hold and call back rather than approve on a voice</span></div>
+                <div class="kv__item"><span class="kv__k">Enterprise</span><span class="kv__v">Executive impersonation to finance or the help desk &rarr; escalate instead of comply</span></div>
+                <div class="kv__item"><span class="kv__k">Telecom</span><span class="kv__v">Voice security at the carrier media stream, without recording anything new</span></div>
+                <div class="kv__item"><span class="kv__k">Government</span><span class="kv__v">Identity impersonation of officials &rarr; a recorded, reviewable decision</span></div>
+                <div class="kv__item"><span class="kv__k">Consumer</span><span class="kv__v">A familiar voice asking for money urgently &rarr; an on-screen warning during the call</span></div>
+                <div class="kv__item"><span class="kv__k">After the fact</span><span class="kv__v">A structured record for a complaint on the national cybercrime portal</span></div>
+              </div>
+            </div>
+
+            <div class="slide__foot">
+              <span>No audio leaves the device or the premises</span>
+              <a class="slide__more" href="security.html">Security &amp; privacy <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <!-- ============ SLIDE 6 · RESEARCH ============ -->
+          <article class="flipstack__card" id="s6" style="--accent: #cfe9ff;">
+            <div class="slide__head">
+              <span class="slide__num">06</span>
+              <span class="slide__eyebrow">Research &amp; references</span>
+            </div>
+            <h2 class="slide__title">Real sources, with links</h2>
+
+            <div class="slide__body">
+              <h3 class="sub-title">Standards and official sources</h3>
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Source</th><th scope="col">Used for</th><th scope="col">Link</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>RFC 7866 &mdash; SIPREC Session Recording Protocol</strong></td><td>The enterprise telephony interface we implement against.</td><td><a href="https://www.rfc-editor.org/rfc/rfc7866" rel="noopener">rfc-editor.org</a></td></tr>
+                    <tr><td><strong>RFC 6962 &mdash; Certificate Transparency</strong></td><td>The Merkle design a later version of the audit log would move to.</td><td><a href="https://www.rfc-editor.org/rfc/rfc6962" rel="noopener">rfc-editor.org</a></td></tr>
+                    <tr><td><strong>Problem Statement 26104, SIH 2026</strong></td><td>The statement this project answers.</td><td><a href="https://sih.gov.in/" rel="noopener">sih.gov.in</a></td></tr>
+                    <tr><td><strong>AICTE &mdash; Cyber Security Cell</strong></td><td>The organisation behind the problem statement.</td><td><a href="https://www.aicte-india.org/" rel="noopener">aicte-india.org</a></td></tr>
+                    <tr><td><strong>Digital Personal Data Protection Act, 2023 and its Rules (notified 14 Nov 2025)</strong></td><td>Why a voiceprint is treated as personal data, encrypted and erasable.</td><td><a href="https://www.meity.gov.in/" rel="noopener">meity.gov.in</a></td></tr>
+                    <tr><td><strong>National Cyber Crime Reporting Portal</strong></td><td>Where a user files the complaint our record export is prepared for.</td><td><a href="https://cybercrime.gov.in/" rel="noopener">cybercrime.gov.in</a></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Research papers</h3>
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Paper</th><th scope="col">Key point used</th><th scope="col">Link</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Does Audio Deepfake Detection Generalize?</strong> (In-the-Wild)</td><td>The lab-versus-real-world gap that the whole decision layer answers.</td><td><a href="https://arxiv.org/abs/2203.16263" rel="noopener">arXiv:2203.16263</a></td></tr>
+                    <tr><td><strong>AASIST</strong></td><td>Spectro-temporal graph attention for anti-spoofing &mdash; the synthesis signal in the console.</td><td><a href="https://arxiv.org/abs/2110.01200" rel="noopener">arXiv:2110.01200</a></td></tr>
+                    <tr><td><strong>ECAPA-TDNN</strong></td><td>Speaker verification architecture behind the identity signal.</td><td><a href="https://arxiv.org/abs/2005.07143" rel="noopener">arXiv:2005.07143</a></td></tr>
+                    <tr><td><strong>RawNet2</strong></td><td>End-to-end anti-spoofing from raw waveform &mdash; the on-device signal in the app.</td><td><span class="placeholder">Paste the exact paper link used &mdash; [PLACEHOLDER]</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Models and datasets</h3>
+              <div class="table-wrap">
+                <table class="data">
+                  <thead><tr><th scope="col">Resource</th><th scope="col">Role</th><th scope="col">Link</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Silero VAD</strong></td><td>Voice activity detection, ONNX, MIT.</td><td><a href="https://github.com/snakers4/silero-vad" rel="noopener">github.com/snakers4/silero-vad</a></td></tr>
+                    <tr><td><strong>speechbrain/spkrec-ecapa-voxceleb</strong></td><td>The speaker-identity model card and weights.</td><td><a href="https://huggingface.co/speechbrain/spkrec-ecapa-voxceleb" rel="noopener">huggingface.co</a></td></tr>
+                    <tr><td><strong>speechbrain/lang-id-voxlingua107-ecapa</strong></td><td>Language identification, used to route rather than to claim coverage.</td><td><a href="https://huggingface.co/speechbrain/lang-id-voxlingua107-ecapa" rel="noopener">huggingface.co</a></td></tr>
+                    <tr><td><strong>ASVspoof</strong></td><td>Benchmark and protocols for spoofed-speech detection.</td><td><a href="https://www.asvspoof.org/" rel="noopener">asvspoof.org</a></td></tr>
+                    <tr><td><strong>FLEURS</strong></td><td>Genuine multilingual speech used in our own test runs.</td><td><a href="https://huggingface.co/datasets/google/fleurs" rel="noopener">huggingface.co</a></td></tr>
+                    <tr><td><strong>MLAAD / other spoof corpora</strong></td><td>Synthetic speech used in our own test runs.</td><td><span class="placeholder">Paste the exact dataset link &mdash; [PLACEHOLDER]</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 class="sub-title" style="margin-top: 22px;">Roadmap &mdash; and what it is not</h3>
+              <div class="grid grid--3">
+                <article class="card card--flat card--static">
+                  <div class="card__head"><h3 class="card__title">Now</h3><span class="badge badge--implemented">Built</span></div>
+                  <p class="card__desc">Detection pipeline, precondition gate, verdicts and profile actions, audit chain, sign-in and roles, grounded assistant.</p>
+                </article>
+                <article class="card card--flat card--static">
+                  <div class="card__head"><h3 class="card__title">Next</h3><span class="badge badge--spec">Specified</span></div>
+                  <p class="card__desc">Incidents and step-up verification, alert delivery, phone-to-console hand-off, calibrated fusion weights, SIPREC recording server.</p>
+                </article>
+                <article class="card card--muted card--static">
+                  <div class="card__head"><h3 class="card__title">Future</h3><span class="badge badge--planned">Planned</span></div>
+                  <p class="card__desc">Wider validated coverage on evidence, Merkle inclusion proofs, SDK, cross-platform and carrier/OEM integration.</p>
+                </article>
+              </div>
+
+              <div class="notice notice--key" style="margin-top: 18px;">
+                <span class="notice__icon" aria-hidden="true">!</span>
+                <p>
+                  <strong>Know more about VoxShield.</strong> This site is the long version of the deck:
+                  <a href="index.html">the full walkthrough</a>,
+                  <a href="technology.html">the technical breakdown</a>,
+                  <a href="benchmarks.html">the measurements and limits</a>,
+                  <a href="index.html#current-stage">the current build stage</a> and
+                  <a href="contact.html">the team</a>.
+                </p>
+              </div>
+            </div>
+
+            <div class="slide__foot">
+              <span>No source is listed here unless it supports a claim we actually make</span>
+              <a class="slide__more" href="docs.html">Documentation hub <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cta-title">
+      <div class="shell">
+        <div class="cta-band" data-reveal>
+          <p class="eyebrow">Know more about VoxShield</p>
+          <h2 class="section-title" id="cta-title">Voice &rarr; verify &rarr; risk &rarr; act &rarr; audit</h2>
+          <p class="sub">
+            VoxShield does not claim to always know. It claims to know when it does not know &mdash; and to
+            act accordingly.
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="index.html">Full walkthrough</a>
+            <a class="btn btn--ghost" href="console.html">Console</a>
+            <a class="btn btn--ghost" href="docs.html">Documentation</a>
+            <a class="btn btn--ghost" href="contact.html">Team Innovexa</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img src="assets/logo.webp" alt="" width="34" height="34" />
+          <div>
+            <p class="foot-name">VoxShield</p>
+            <p class="foot-tag">Voice-cloning detection that says when it cannot tell.</p>
+          </div>
+        </div>
+        <div class="foot-col"><h3>Product</h3><a href="products.html">Overview</a><a href="products.html#mobile">Mobile</a><a href="console.html">Console</a><a href="products.html#sdk">SDK</a><a href="workflow.html">How a call is checked</a></div>
+        <div class="foot-col"><h3>Technical</h3><a href="technology.html">Detection pipeline</a><a href="technology.html#gate">Precondition gate</a><a href="technology.html#verdicts">Verdict system</a><a href="benchmarks.html">Measurements</a><a href="benchmarks.html#limitations">What we do not claim</a></div>
+        <div class="foot-col"><h3>Project</h3><a href="security.html">Security & privacy</a><a href="docs.html">Documentation</a><a href="components.html">Design system</a><a href="contact.html">Team</a><a href="console.html#access">Console access</a></div>
+      </div>
+      <p class="foot-legal">
+        Team Innovexa &middot; Smart India Hackathon 2026 &middot; PS 26104 &middot; AICTE Cyber Security Cell<br />
+        This website is informational and runs no detection. Every measured number on it is reproducible from
+        <code>benchmarks/results.md</code> in the Console repository; anything not measured is labelled.
+      </p>
+    </div>
+  </footer>
+
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="mobile-sheet" id="mobile-menu" aria-hidden="true" hidden>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="mobile-link" style="--i: 1;">Home</a>
+        <a href="products.html" class="mobile-link" style="--i: 2;">Products</a>
+        <div class="mobile-group"><h3>Products</h3><a href="products.html#mobile" class="mobile-link" style="--i: 3;">VoxShield Mobile</a><a href="products.html#console" class="mobile-link" style="--i: 4;">VoxShield Console</a><a href="products.html#sdk" class="mobile-link" style="--i: 5;">VoxShield SDK</a><a href="products.html#assistant" class="mobile-link" style="--i: 6;">VoxShield Assistant</a></div>
+        <a href="technology.html" class="mobile-link" style="--i: 7;">Technology</a>
+        <a href="benchmarks.html" class="mobile-link" style="--i: 8;">Measurements</a>
+        <a href="security.html" class="mobile-link" style="--i: 9;">Security</a>
+        <a href="sih.html" class="mobile-link active" style="--i: 10;">SIH</a>
+        <a href="docs.html" class="mobile-link" style="--i: 11;">Docs</a>
+        <div class="mobile-group"><h3>Docs</h3><a href="docs.html#technical" class="mobile-link" style="--i: 12;">Architecture & pipeline</a><a href="docs.html#security" class="mobile-link" style="--i: 13;">Security & privacy</a><a href="docs.html#evaluation" class="mobile-link" style="--i: 14;">Evaluation</a><a href="docs.html#integration" class="mobile-link" style="--i: 15;">Integration</a><a href="docs.html#project" class="mobile-link" style="--i: 16;">Project documents</a></div>
+        <a href="console.html" class="mobile-signin" style="--i: 17;">Open Console</a>
+    </nav>
+  </div>
+</body>
+</html>

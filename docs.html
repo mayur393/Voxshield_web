@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Documentation — VoxShield</title>
+  <meta name="description" content="The VoxShield documentation hub: architecture, detection pipeline, security, evaluation, integration and project documents." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="icon" type="image/webp" href="assets/logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <script src="main.js" defer></script>
+  <script src="ascii.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared background: one looping video behind every page -->
+  <div class="bg" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <div class="page-header">
+    <header class="header">
+      <a href="index.html" class="logo-btn" aria-label="VoxShield, home">
+        <img src="assets/logo.webp" alt="" width="52" height="52" class="logo-img" />
+      </a>
+
+      <nav class="nav-pill" aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li class="has-menu"><a href="products.html" class="nav-link">Products</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Products menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="products.html#mobile">VoxShield Mobile<span>On-device Android detection</span></a><a href="products.html#console">VoxShield Console<span>Detect, decide, respond</span></a><a href="products.html#sdk">VoxShield SDK<span>Planned integration layer</span></a><a href="products.html#assistant">VoxShield Assistant<span>Grounded answers, or none</span></a></div></li>
+          <li><a href="technology.html" class="nav-link">Technology</a></li>
+          <li><a href="benchmarks.html" class="nav-link">Measurements</a></li>
+          <li><a href="security.html" class="nav-link">Security</a></li>
+          <li><a href="sih.html" class="nav-link">SIH</a></li>
+          <li class="has-menu"><a href="docs.html" class="nav-link active" aria-current="page">Docs</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Docs menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="docs.html#technical">Architecture & pipeline<span>Gate, fusion, verdicts</span></a><a href="docs.html#security">Security & privacy<span>Audit chain, retention</span></a><a href="docs.html#evaluation">Evaluation<span>Measurements and limits</span></a><a href="docs.html#integration">Integration<span>API contract and wire format</span></a><a href="docs.html#project">Project documents<span>PRD, TRD, SIH material</span></a></div></li>
+        </ul>
+      </nav>
+
+      <a href="console.html" class="signin-btn">Console</a>
+
+      <button class="burger-btn" id="burger-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </header>
+  </div>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Documentation</p>
+          <h1 class="page-title">Read it before<br />you believe it</h1>
+          <p class="lead">
+            Every claim VoxShield makes in public is traceable to a document. This hub points at all of
+            them &mdash; the ones published with this website, and the ones that live in the product
+            repositories.
+          </p>
+        </div>
+
+        <div class="notice" data-reveal style="--d: 0.08s;" role="note">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>Two kinds of entry below.</strong> Links open documents published with this site.
+            Entries shown as <span class="mono">repository/path.md</span> live in the Console or Mobile
+            repositories and are not mirrored here &mdash; they are named so you can ask for them rather
+            than being sent to a dead link.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Documentation index">
+      <div class="shell">
+        <div class="docs-layout">
+          <aside class="docs-side" data-reveal aria-label="Documentation navigation">
+            <h3>Products</h3>
+            <a href="#products">Product documents</a>
+            <h3>Technical</h3>
+            <a href="#technical">Architecture &amp; pipeline</a>
+            <a href="technology.html#gate">Precondition gate</a>
+            <a href="technology.html#fusion">Risk fusion</a>
+            <a href="technology.html#verdicts">Verdict system</a>
+            <h3>Security</h3>
+            <a href="#security">Privacy &amp; audit</a>
+            <a href="security.html#access">Authentication</a>
+            <h3>Evaluation</h3>
+            <a href="#evaluation">Benchmarks &amp; datasets</a>
+            <a href="benchmarks.html#limitations">Known limitations</a>
+            <h3>Integration</h3>
+            <a href="#integration">API &amp; wire contract</a>
+            <h3>Project</h3>
+            <a href="#project">PRD, TRD, SIH material</a>
+            <a href="components.html">Design system</a>
+          </aside>
+
+          <div>
+            <nav class="crumbs" aria-label="Breadcrumb">
+              <a href="index.html">Home</a> <span aria-hidden="true">/</span> <span>Documentation</span>
+            </nav>
+
+            <section id="products" aria-labelledby="pd-title" style="margin-bottom: 44px;">
+              <h2 class="section-title" id="pd-title">Products</h2>
+              <p class="sub" style="margin-bottom: 18px;">What each surface is, and what state it is in.</p>
+              <div class="grid grid--2">
+                <article class="card" data-reveal>
+                  <div class="card__head"><h3 class="card__title">Mobile</h3><span class="badge badge--built">Built</span></div>
+                  <p class="card__desc">On-device Android detection, the four input paths, and the live-capture feasibility measurements.</p>
+                  <a class="card__link" href="workflow.html">How a call is checked <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                  <p class="card__meta"><span class="mono">VoxshieldMobile/docs/ON_DEVICE_ARCHITECTURE.md</span>, <span class="mono">LIVE_CALL_AUDIO_FEASIBILITY.md</span></p>
+                </article>
+                <article class="card" data-reveal style="--d: 0.06s;">
+                  <div class="card__head"><h3 class="card__title">Console</h3><span class="badge badge--built">Built</span></div>
+                  <p class="card__desc">The detection core, the decision layer, the console views and the enterprise layer specification.</p>
+                  <a class="card__link" href="console.html">Console tour <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                  <p class="card__meta"><span class="mono">Voxshield_Console/docs/ENTERPRISE_PLATFORM.md</span></p>
+                </article>
+                <article class="card card--muted" data-reveal style="--d: 0.12s;">
+                  <div class="card__head"><h3 class="card__title">SDK</h3><span class="badge badge--planned">Planned</span></div>
+                  <p class="card__desc">No package and no document of its own yet. The wire contract it would wrap is documented.</p>
+                  <a class="card__link" href="products.html#sdk">Planned shape <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card" data-reveal style="--d: 0.18s;">
+                  <div class="card__head"><h3 class="card__title">Assistant</h3><span class="badge badge--built">Built</span></div>
+                  <p class="card__desc">Grounded retrieval, citation format, refusal behaviour and the corpus it indexes.</p>
+                  <a class="card__link" href="products.html#assistant">How it answers <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                  <p class="card__meta"><span class="mono">Voxshield_Console/docs/claims/00-CONTEXT-PACK.md</span> §10</p>
+                </article>
+              </div>
+            </section>
+
+            <section id="technical" aria-labelledby="td-title" style="margin-bottom: 44px;">
+              <h2 class="section-title" id="td-title">Technical</h2>
+              <p class="sub" style="margin-bottom: 18px;">Architecture, the detection pipeline, models and the decision layer.</p>
+              <div class="table-wrap" data-reveal>
+                <table class="data">
+                  <thead><tr><th scope="col">Topic</th><th scope="col">Where</th><th scope="col">Covers</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Architecture</strong></td><td><a href="technology.html">technology.html</a></td><td>One process, one CUDA context, twelve stages.</td></tr>
+                    <tr><td><strong>Detection pipeline</strong></td><td><a href="technology.html#pipeline">technology.html#pipeline</a></td><td>Ingest through audit append, stage by stage.</td></tr>
+                    <tr><td><strong>Models</strong></td><td><a href="technology.html#models">technology.html#models</a></td><td>Six components, licences, weights, devices.</td></tr>
+                    <tr><td><strong>Precondition gate</strong></td><td><a href="technology.html#gate">technology.html#gate</a></td><td>Four checks, six reason codes.</td></tr>
+                    <tr><td><strong>Language gate</strong></td><td><a href="technology.html#language-gate">technology.html#language-gate</a></td><td>Which languages are admitted, and why.</td></tr>
+                    <tr><td><strong>Risk fusion</strong></td><td><a href="technology.html#fusion">technology.html#fusion</a></td><td>Weights, bounds and the disagreement rule.</td></tr>
+                    <tr><td><strong>Verdict system</strong></td><td><a href="technology.html#verdicts">technology.html#verdicts</a></td><td>Five verdicts, three-valued <span class="mono">is_fake</span>.</td></tr>
+                    <tr><td><strong>Frozen constants</strong></td><td><span class="mono">Voxshield_Console/app/core/constants.py</span></td><td>Every threshold the product is built on.</td></tr>
+                    <tr><td><strong>Technical requirements</strong></td><td><span class="mono">Voxshield_Console/docs/TRD.md</span></td><td>The specification the code is held to.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="security" aria-labelledby="sd-title" style="margin-bottom: 44px;">
+              <h2 class="section-title" id="sd-title">Security</h2>
+              <p class="sub" style="margin-bottom: 18px;">Privacy posture, encryption, the audit chain and access control.</p>
+              <div class="grid grid--2">
+                <article class="card" data-reveal>
+                  <h3 class="card__title">Privacy &amp; data handling</h3>
+                  <p class="card__desc">Zero raw audio persisted, no transcription, encrypted voiceprints, retention windows and DPDP framing.</p>
+                  <a class="card__link" href="security.html#privacy">Read it <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card" data-reveal style="--d: 0.06s;">
+                  <h3 class="card__title">Audit chain</h3>
+                  <p class="card__desc">SHA-256 chaining, verification that names the first broken entry, and the three tested corruption paths.</p>
+                  <a class="card__link" href="technology.html#audit">Read it <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card" data-reveal style="--d: 0.12s;">
+                  <h3 class="card__title">Authentication &amp; roles</h3>
+                  <p class="card__desc">Five roles, the permission matrix, session handling and what no API will ever return.</p>
+                  <a class="card__link" href="security.html#access">Read it <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card card--muted" data-reveal style="--d: 0.18s;">
+                  <h3 class="card__title">Offline architecture</h3>
+                  <p class="card__desc">Why there is exactly one outbound call in the codebase, and how that is tested rather than asserted.</p>
+                  <a class="card__link" href="security.html#offline">Read it <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+              </div>
+              <p class="source" data-reveal>
+                Repository sources: <span class="mono">Voxshield_Console/docs/RULES.md</span>,
+                <span class="mono">docs/claims/07-engineering-security-privacy.md</span>,
+                <a href="docs/BACKEND_SCHEMA.md">this site's own backend note</a>.
+              </p>
+            </section>
+
+            <section id="evaluation" aria-labelledby="ed-title" style="margin-bottom: 44px;">
+              <h2 class="section-title" id="ed-title">Evaluation</h2>
+              <p class="sub" style="margin-bottom: 18px;">Benchmarks, datasets, limitations and how to reproduce them.</p>
+              <div class="table-wrap" data-reveal>
+                <table class="data">
+                  <thead><tr><th scope="col">Document</th><th scope="col">Where</th><th scope="col">Covers</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Measurements</strong></td><td><a href="benchmarks.html">benchmarks.html</a></td><td>Speed, capacity, cost and test coverage. No accuracy figure.</td></tr>
+                    <tr><td><strong>Why no accuracy number</strong></td><td><a href="benchmarks.html#why-no-number">benchmarks.html#why-no-number</a></td><td>What a single percentage hides, and what we do instead.</td></tr>
+                    <tr><td><strong>What we do not claim</strong></td><td><a href="benchmarks.html#limitations">benchmarks.html#limitations</a></td><td>Accuracy, language coverage, replay, carrier and bank integration.</td></tr>
+                    <tr><td><strong>Claim discipline</strong></td><td><a href="benchmarks.html#discipline">benchmarks.html#discipline</a></td><td>The never-say / say-instead table this site is held to.</td></tr>
+                    <tr><td><strong>Detection test runs</strong></td><td><span class="mono">Voxshield_Console/benchmarks/results.md</span></td><td>Kept in the repository with their datasets and caveats, not advertised on the site.</td></tr>
+                    <tr><td><strong>Dataset notes</strong></td><td><span class="mono">Voxshield_Console/docs/</span></td><td>Which corpora were used, their licences, and how test sets were built.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="integration" aria-labelledby="id-title" style="margin-bottom: 44px;">
+              <h2 class="section-title" id="id-title">Integration</h2>
+              <p class="sub" style="margin-bottom: 18px;">The wire contract that everything else would be built on.</p>
+              <div data-reveal>
+                <pre class="code"><code><span class="c"># One object, every endpoint, contract_version 1.0</span>
+{
+  <span class="k">"contract_version"</span>: <span class="s">"1.0"</span>,
+  <span class="k">"verdict"</span>:     <span class="s">"SAFE"</span> | <span class="s">"SUSPICIOUS"</span> | <span class="s">"HIGH_RISK"</span> | <span class="s">"LOW_CONFIDENCE"</span> | <span class="s">"ERROR"</span>,
+  <span class="k">"risk"</span>:        0-100 | null,
+  <span class="k">"risk_range"</span>:  [ low, high ],
+  <span class="k">"is_fake"</span>:     true | false | null,     <span class="c"># null is not false</span>
+  <span class="k">"reason_code"</span>: <span class="s">"NO_VALIDATED_SIGNAL"</span> | ... | null,
+  <span class="k">"latency_ms"</span>:  308
+}</code></pre>
+              </div>
+              <div class="grid grid--3" style="margin-top: 18px;">
+                <article class="card card--flat" data-reveal>
+                  <div class="card__head"><h3 class="card__title">REST &amp; WebSocket</h3><span class="badge badge--implemented">Built</span></div>
+                  <p class="card__desc">14 REST endpoints and 3 WebSocket channels, documented in <span class="mono">docs/API_CONTRACT.md</span>.</p>
+                </article>
+                <article class="card card--flat" data-reveal style="--d: 0.06s;">
+                  <div class="card__head"><h3 class="card__title">Mobile &rarr; Console</h3><span class="badge badge--spec">Specified</span></div>
+                  <p class="card__desc">Device tokens and recording upload are specified; metadata and a content hash are stored, never audio.</p>
+                </article>
+                <article class="card card--flat" data-reveal style="--d: 0.12s;">
+                  <div class="card__head"><h3 class="card__title">SDK</h3><span class="badge badge--planned">Planned</span></div>
+                  <p class="card__desc">Not built. The contract above is the part that is already decided.</p>
+                </article>
+              </div>
+            </section>
+
+            <section id="project" aria-labelledby="prd-title">
+              <h2 class="section-title" id="prd-title">Project</h2>
+              <p class="sub" style="margin-bottom: 18px;">The documents behind this website, published with it.</p>
+              <div class="grid grid--2">
+                <article class="card" data-reveal>
+                  <h3 class="card__title">PRD &mdash; this website</h3>
+                  <p class="card__desc">Scope, audience, success criteria, and what is deliberately out of scope.</p>
+                  <a class="card__link" href="docs/PRD.md">docs/PRD.md <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card" data-reveal style="--d: 0.06s;">
+                  <h3 class="card__title">TRD &mdash; this website</h3>
+                  <p class="card__desc">The locked stack: plain HTML, CSS and vanilla JS, static hosting, no build step.</p>
+                  <a class="card__link" href="docs/TRD.md">docs/TRD.md <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card" data-reveal style="--d: 0.12s;">
+                  <h3 class="card__title">Frontend spec</h3>
+                  <p class="card__desc">Section rules, the status-badge rule, and the definition of done.</p>
+                  <a class="card__link" href="docs/FRONTEND.md">docs/FRONTEND.md <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card" data-reveal style="--d: 0.18s;">
+                  <h3 class="card__title">Why this site has no backend</h3>
+                  <p class="card__desc">A deliberate architecture decision, written down so nobody looks for a server folder.</p>
+                  <a class="card__link" href="docs/BACKEND_SCHEMA.md">docs/BACKEND_SCHEMA.md <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="card card--muted" data-reveal style="--d: 0.24s;">
+                  <h3 class="card__title">SIH material</h3>
+                  <p class="card__desc">Problem statement framing, demo script and the judge-facing guide.</p>
+                  <p class="card__meta"><span class="mono">Voxshield_Console/docs/SIH_MASTER_GUIDE.md</span>, <span class="mono">DEMO_SCRIPT.md</span></p>
+                </article>
+                <article class="card" data-reveal style="--d: 0.3s;">
+                  <h3 class="card__title">Design system</h3>
+                  <p class="card__desc">The UI reference this site is built from: type, colour, status chips, components and motion.</p>
+                  <a class="card__link" href="components.html">Open the reference <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cta-title">
+      <div class="shell">
+        <div class="cta-band" data-reveal>
+          <p class="eyebrow">Missing something?</p>
+          <h2 class="section-title" id="cta-title">Ask for the document by name</h2>
+          <p class="sub">Repository documents are not mirrored here, but they exist and can be shared.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="contact.html">Contact the team</a>
+            <a class="btn btn--ghost" href="benchmarks.html">Benchmarks</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img src="assets/logo.webp" alt="" width="34" height="34" />
+          <div>
+            <p class="foot-name">VoxShield</p>
+            <p class="foot-tag">Voice-cloning detection that says when it cannot tell.</p>
+          </div>
+        </div>
+        <div class="foot-col"><h3>Product</h3><a href="products.html">Overview</a><a href="products.html#mobile">Mobile</a><a href="console.html">Console</a><a href="products.html#sdk">SDK</a><a href="workflow.html">How a call is checked</a></div>
+        <div class="foot-col"><h3>Technical</h3><a href="technology.html">Detection pipeline</a><a href="technology.html#gate">Precondition gate</a><a href="technology.html#verdicts">Verdict system</a><a href="benchmarks.html">Measurements</a><a href="benchmarks.html#limitations">What we do not claim</a></div>
+        <div class="foot-col"><h3>Project</h3><a href="security.html">Security & privacy</a><a href="docs.html">Documentation</a><a href="components.html">Design system</a><a href="contact.html">Team</a><a href="console.html#access">Console access</a></div>
+      </div>
+      <p class="foot-legal">
+        Team Innovexa &middot; Smart India Hackathon 2026 &middot; PS 26104 &middot; AICTE Cyber Security Cell<br />
+        This website is informational and runs no detection. Every measured number on it is reproducible from
+        <code>benchmarks/results.md</code> in the Console repository; anything not measured is labelled.
+      </p>
+    </div>
+  </footer>
+
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="mobile-sheet" id="mobile-menu" aria-hidden="true" hidden>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="mobile-link" style="--i: 1;">Home</a>
+        <a href="products.html" class="mobile-link" style="--i: 2;">Products</a>
+        <div class="mobile-group"><h3>Products</h3><a href="products.html#mobile" class="mobile-link" style="--i: 3;">VoxShield Mobile</a><a href="products.html#console" class="mobile-link" style="--i: 4;">VoxShield Console</a><a href="products.html#sdk" class="mobile-link" style="--i: 5;">VoxShield SDK</a><a href="products.html#assistant" class="mobile-link" style="--i: 6;">VoxShield Assistant</a></div>
+        <a href="technology.html" class="mobile-link" style="--i: 7;">Technology</a>
+        <a href="benchmarks.html" class="mobile-link" style="--i: 8;">Measurements</a>
+        <a href="security.html" class="mobile-link" style="--i: 9;">Security</a>
+        <a href="sih.html" class="mobile-link" style="--i: 10;">SIH</a>
+        <a href="docs.html" class="mobile-link active" style="--i: 11;">Docs</a>
+        <div class="mobile-group"><h3>Docs</h3><a href="docs.html#technical" class="mobile-link" style="--i: 12;">Architecture & pipeline</a><a href="docs.html#security" class="mobile-link" style="--i: 13;">Security & privacy</a><a href="docs.html#evaluation" class="mobile-link" style="--i: 14;">Evaluation</a><a href="docs.html#integration" class="mobile-link" style="--i: 15;">Integration</a><a href="docs.html#project" class="mobile-link" style="--i: 16;">Project documents</a></div>
+        <a href="console.html" class="mobile-signin" style="--i: 17;">Open Console</a>
+    </nav>
+  </div>
+</body>
+</html>

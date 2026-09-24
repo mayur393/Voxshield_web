@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Technology — VoxShield</title>
+  <meta name="description" content="The VoxShield detection pipeline: ring buffer, VAD, precondition gate, language gate, AASIST and ECAPA signals, risk fusion, five verdicts and the profile action matrix." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="icon" type="image/webp" href="assets/logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <script src="main.js" defer></script>
+  <script src="ascii.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared background: one looping video behind every page -->
+  <div class="bg" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <div class="page-header">
+    <header class="header">
+      <a href="index.html" class="logo-btn" aria-label="VoxShield, home">
+        <img src="assets/logo.webp" alt="" width="52" height="52" class="logo-img" />
+      </a>
+
+      <nav class="nav-pill" aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li class="has-menu"><a href="products.html" class="nav-link">Products</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Products menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="products.html#mobile">VoxShield Mobile<span>On-device Android detection</span></a><a href="products.html#console">VoxShield Console<span>Detect, decide, respond</span></a><a href="products.html#sdk">VoxShield SDK<span>Planned integration layer</span></a><a href="products.html#assistant">VoxShield Assistant<span>Grounded answers, or none</span></a></div></li>
+          <li><a href="technology.html" class="nav-link active" aria-current="page">Technology</a></li>
+          <li><a href="benchmarks.html" class="nav-link">Measurements</a></li>
+          <li><a href="security.html" class="nav-link">Security</a></li>
+          <li><a href="sih.html" class="nav-link">SIH</a></li>
+          <li class="has-menu"><a href="docs.html" class="nav-link">Docs</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Docs menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="docs.html#technical">Architecture & pipeline<span>Gate, fusion, verdicts</span></a><a href="docs.html#security">Security & privacy<span>Audit chain, retention</span></a><a href="docs.html#evaluation">Evaluation<span>Measurements and limits</span></a><a href="docs.html#integration">Integration<span>API contract and wire format</span></a><a href="docs.html#project">Project documents<span>PRD, TRD, SIH material</span></a></div></li>
+        </ul>
+      </nav>
+
+      <a href="console.html" class="signin-btn">Console</a>
+
+      <button class="burger-btn" id="burger-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </header>
+  </div>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Technology</p>
+          <h1 class="page-title">One laptop.<br />One honest answer.</h1>
+          <p class="lead">
+            VoxShield Console runs one OS process, one CUDA context and one GPU worker. A four-second
+            window of audio walks twelve stages and leaves behind a verdict, a prescribed action and an
+            audit entry &mdash; then the audio is gone.
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="benchmarks.html">See what was measured</a>
+            <a class="btn btn--ghost" href="docs.html#technical">Technical documentation</a>
+          </div>
+        </div>
+
+        <div class="notice" data-reveal style="--d: 0.08s;" role="note">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>Product-level description.</strong> Constants, model names and licences on this page
+            come from the Console repository's frozen constants and claims pack. Where something is
+            heuristic, unvalidated or unbuilt, it is labelled on this page rather than smoothed over.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pipeline" aria-labelledby="pipe-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Detection pipeline</p>
+          <h2 class="section-title" id="pipe-title">Twelve stages, in order</h2>
+          <p class="sub">Select any stage for the detail. The order is not cosmetic &mdash; the gate before the score is the design.</p>
+        </div>
+
+        <div class="pipe" data-reveal data-pipeline>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Audio input"
+            data-body="Call audio arrives over /ws/telephony from the carrier adapter, over /ws/calls from the console, or as an uploaded file. Uploads are checked by extension and magic bytes, capped at 50 MB, and deleted in a finally block."><span class="pipe__n">01</span><span class="pipe__name">Audio input</span><span class="pipe__hint">WebSocket or file</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Normalise"
+            data-body="Resampled to 16 000 Hz, mono, int16 little-endian — the frozen wire format. Every other component assumes it, so normalisation happens once, at the edge."><span class="pipe__n">02</span><span class="pipe__name">Normalise</span><span class="pipe__hint">16 kHz mono int16</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Ring buffer"
+            data-body="A 4.0-second window advancing in 1.0-second hops. That produces about one verdict per second on a live call, and it is why the honest phrasing is 'first verdict under five seconds, refreshed every second' rather than 'real-time'."><span class="pipe__n">03</span><span class="pipe__name">Ring buffer</span><span class="pipe__hint">4.0 s / 1.0 s hop</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Silero VAD v5"
+            data-body="ONNX, MIT licence, 2.3 MB, running on CPU. 32 ms frames at threshold 0.5. Its output is what the gate's speech-duration check measures, so silence never becomes a confident answer."><span class="pipe__n">04</span><span class="pipe__name">Silero VAD</span><span class="pipe__hint">Voice activity</span></button>
+          <button class="pipe__stage pipe__stage--gate" type="button" aria-expanded="false"
+            data-title="Precondition gate"
+            data-body="Four checks, run before any model score is read: at least 2.5 s of voiced speech, SNR at least 10 dB, clipping at most 2%, and an enrolment to compare against. Any failure returns LOW_CONFIDENCE with a reason code and no risk number."><span class="pipe__n">05</span><span class="pipe__name">Precondition gate</span><span class="pipe__hint">The load-bearing wall</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Language check"
+            data-body="A language-identification model runs only so the system knows whether it has a detector it has actually checked for this audio. It is not a translation or transcription step, and it is not a claim that VoxShield works across languages."><span class="pipe__n">06</span><span class="pipe__name">Language check</span><span class="pipe__hint">Used to decide, not to claim</span></button>
+          <button class="pipe__stage pipe__stage--gate" type="button" aria-expanded="false"
+            data-title="Validation gate"
+            data-body="If the audio falls outside the narrow case the team has actually checked, the synthesis signal is withheld rather than reported, and the verdict becomes LOW_CONFIDENCE with the reason NO_VALIDATED_SIGNAL. Staying silent is the designed behaviour, not a failure."><span class="pipe__n">07</span><span class="pipe__name">Validation gate</span><span class="pipe__hint">Answer only where checked</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Synthesis signal — AASIST"
+            data-body="clovaai/aasist, MIT, 1.28 MB, 297 866 parameters, native input 64 600 samples (4.04 s). 16.7 ms per window on CUDA against a 180 ms budget. Nes2Net-X was dropped because its repository carries no licence at all."><span class="pipe__n">08</span><span class="pipe__name">Synthesis signal</span><span class="pipe__hint">AASIST, 16.7 ms</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Speaker signal — ECAPA-TDNN"
+            data-body="speechbrain/spkrec-ecapa-voxceleb, Apache-2.0, 89.1 MB on GPU, 4.9 ms per window. Compares the window against the enrolled 192-float voiceprint. Constructed directly rather than through from_hparams, because the published config resolves paths against Hugging Face at load time — offline has to be enforced, not assumed."><span class="pipe__n">09</span><span class="pipe__name">Speaker signal</span><span class="pipe__hint">ECAPA, 4.9 ms</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Risk fusion"
+            data-body="Synthesis 0.45, speaker 0.25, phase 0.20, prosody 0.10 — heuristic and uncalibrated. Unavailable signals redistribute proportionally and the weights always sum to 1.0 ± 0.001. Phase and prosody are built, measured and deliberately excluded from the live fusion."><span class="pipe__n">10</span><span class="pipe__name">Risk fusion</span><span class="pipe__hint">Weighted, bounded</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Verdict and profile action"
+            data-body="Risk 0–100 becomes one of five verdicts, and the active risk profile turns that verdict into a prescribed action. Changing the profile on a live call changes the action without re-analysing the audio."><span class="pipe__n">11</span><span class="pipe__name">Verdict + action</span><span class="pipe__hint">Five outcomes, four profiles</span></button>
+          <button class="pipe__stage" type="button" aria-expanded="false"
+            data-title="Audit append, then discard"
+            data-body="Every decision appends to a SHA-256 hash chain with a 64-zero genesis hash. Verification names the seq of the first broken link, and three corruption paths are tested: a rewritten payload, a forged header and an excised row. The window is then discarded from memory."><span class="pipe__n">12</span><span class="pipe__name">Audit &amp; discard</span><span class="pipe__hint">Tamper-evident</span></button>
+        </div>
+
+        <div class="pipe__detail" data-pipeline-detail hidden>
+          <h3 data-detail-title></h3>
+          <p data-detail-body></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="models" aria-labelledby="models-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Model stack</p>
+          <h2 class="section-title" id="models-title">Six components, no fine-tuning</h2>
+          <p class="sub">
+            Every licence was read from source. Total new weights are about 177 MB, and all 15 model
+            hashes are verified at load.
+          </p>
+        </div>
+
+        <div class="table-wrap" data-reveal>
+          <table class="data">
+            <thead>
+              <tr><th scope="col">Signal</th><th scope="col">Model</th><th scope="col">Licence</th><th scope="col">Weights</th><th scope="col">Device</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Voice activity</strong></td><td>Silero VAD v5 (ONNX)</td><td>MIT</td><td class="num">2.3 MB</td><td>CPU</td></tr>
+              <tr><td><strong>Speaker identity</strong></td><td>speechbrain/spkrec-ecapa-voxceleb</td><td>Apache-2.0</td><td class="num">89.1 MB</td><td>GPU</td></tr>
+              <tr><td><strong>Synthesis artefacts</strong></td><td>AASIST (clovaai/aasist)</td><td>MIT</td><td class="num">1.28 MB</td><td>GPU</td></tr>
+              <tr><td><strong>Language check</strong></td><td>speechbrain language-id model &mdash; used only to route, never to claim coverage</td><td>Apache-2.0</td><td class="num">86.4 MB</td><td>GPU</td></tr>
+              <tr><td><strong>Phase (MGD)</strong></td><td>librosa + numpy &mdash; <span class="cell-warn">excluded from fusion</span></td><td>ISC</td><td class="num">0</td><td>CPU</td></tr>
+              <tr><td><strong>Prosody (6 features)</strong></td><td>librosa &mdash; <span class="cell-warn">excluded from fusion</span></td><td>ISC</td><td class="num">0</td><td>CPU</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="source" data-reveal>
+          Phase and prosody are our own signals. They were built, tested, and left switched off because
+          they performed no better than a coin toss &mdash; rather than quietly included to make the
+          architecture diagram look fuller. 21 dependencies, all permissive licences.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="gate" aria-labelledby="gate-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Precondition gate</p>
+          <h2 class="section-title" id="gate-title">Before any score is read</h2>
+          <p class="sub">
+            The gate is the reason this product is defensible. It decides whether the window can support
+            a conclusion at all, and it runs first &mdash; because a score that exists is a score someone
+            will eventually display.
+          </p>
+        </div>
+
+        <div class="gate" data-reveal>
+          <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Speech present</span><span class="gate__value"><span class="mono">MIN_VOICED_SECONDS = 2.5</span></span></div></div>
+          <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Signal-to-noise</span><span class="gate__value"><span class="mono">MIN_SNR_DB = 10.0</span></span></div></div>
+          <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Clipping</span><span class="gate__value"><span class="mono">MAX_CLIPPING_RATIO = 0.02</span></span></div></div>
+          <div class="gate__check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><div><span class="gate__label">Enrolment</span><span class="gate__value"><span class="mono">MIN_ENROLMENT_SECONDS = 5.0</span></span></div></div>
+        </div>
+
+        <div class="gate__outcomes" data-reveal>
+          <div class="outcome outcome--pass">
+            <span class="outcome__k">Pass</span>
+            <span class="outcome__t">Signals are scored</span>
+            <span class="outcome__d">Fusion produces a risk number, a verdict and the profile's prescribed action.</span>
+          </div>
+          <div class="outcome outcome--fail">
+            <span class="outcome__k">Fail</span>
+            <span class="outcome__t">LOW_CONFIDENCE</span>
+            <span class="outcome__d">Risk is null, a numeric range is returned instead, and the reason code says which check failed.</span>
+          </div>
+        </div>
+
+        <div class="table-wrap" data-reveal style="margin-top: 20px;">
+          <table class="data">
+            <thead><tr><th scope="col">Reason code</th><th scope="col">Trigger</th></tr></thead>
+            <tbody>
+              <tr><td><span class="mono">INSUFFICIENT_SPEECH</span></td><td>Under 2.5 s of voiced audio in the window</td></tr>
+              <tr><td><span class="mono">CHANNEL_DEGRADED</span></td><td>SNR below 10 dB, or clipping above 2%</td></tr>
+              <tr><td><span class="mono">NO_ENROLMENT</span></td><td>No voiceprint to compare the speaker against</td></tr>
+              <tr><td><span class="mono">ANALYSIS_TIMEOUT</span></td><td>Analysis exceeded 2 500 ms</td></tr>
+              <tr><td><span class="mono">SIGNAL_DISAGREEMENT</span></td><td>Signals disagree by more than 45 points</td></tr>
+              <tr><td><span class="mono">NO_VALIDATED_SIGNAL</span></td><td>No detector validated for the detected language</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="language-gate" aria-labelledby="lang-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Validation gate</p>
+          <h2 class="section-title" id="lang-title">Answer only where we have checked</h2>
+          <p class="sub">
+            A detector that has not been tested on the kind of audio in front of it is not evidence. So the
+            system carries a short list of cases it has actually validated, and
+            <span class="annot annot--warn" data-annot="underline">everything outside that list returns no score</span>.
+          </p>
+        </div>
+
+        <div class="gate__outcomes" data-reveal>
+          <div class="outcome outcome--pass">
+            <span class="outcome__k">Inside the checked case</span>
+            <span class="outcome__t">The signal is used</span>
+            <span class="outcome__d">The synthesis score joins fusion and contributes to a risk number.</span>
+          </div>
+          <div class="outcome outcome--fail">
+            <span class="outcome__k">Outside it</span>
+            <span class="outcome__t">NO_VALIDATED_SIGNAL</span>
+            <span class="outcome__d">The score is withheld, the verdict is LOW_CONFIDENCE, and at high stakes the transaction still stops.</span>
+          </div>
+        </div>
+
+        <div class="notice notice--key" data-reveal style="margin-top: 20px;">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>This is why the site claims no language coverage.</strong> The validated set is
+            deliberately narrow, and widening it requires new measurement, not a configuration change. Until
+            that measurement exists, those calls get a refusal rather than a number.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fusion" aria-labelledby="fusion-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Risk fusion</p>
+          <h2 class="section-title" id="fusion-title">The range is arithmetic, not a guess</h2>
+          <p class="sub">
+            When a signal is missing, VoxShield does not substitute a neutral value. It reports the
+            interval the evidence actually supports.
+          </p>
+        </div>
+
+        <div class="grid grid--2">
+          <div data-reveal>
+            <pre class="code"><code><span class="c"># i = signals that completed, j = signals that are missing</span>
+low  = 100 &times; &Sigma;(w_i &middot; s_i)
+high = 100 &times; (&Sigma;(w_i &middot; s_i) + &Sigma; w_j)
+
+<span class="c"># A missing signal contributes 0 at the low end</span>
+<span class="c"># and its full weight at the high end.</span>
+<span class="c"># No signal completed  &rArr;  exactly [0, 100]</span></code></pre>
+          </div>
+          <div class="grid" data-reveal style="--d: 0.06s;">
+            <article class="card card--flat">
+              <div class="card__head"><h3 class="card__title">Weights</h3><span class="badge badge--planned">Heuristic</span></div>
+              <p class="card__desc">
+                Synthesis <strong>0.45</strong> &middot; speaker <strong>0.25</strong> &middot; phase
+                <strong>0.20</strong> &middot; prosody <strong>0.10</strong>. Uncalibrated, and stated as
+                such. Calibrating them by logistic regression on a held-out set, and reporting C<sub>llr</sub>,
+                is on the measurement roadmap.
+              </p>
+            </article>
+            <article class="card card--flat">
+              <div class="card__head"><h3 class="card__title">Disagreement</h3><span class="badge badge--implemented">Implemented</span></div>
+              <p class="card__desc">
+                If the signals disagree by more than 45 points the fused number is not reported as a
+                verdict at all &mdash; it returns <span class="mono">SIGNAL_DISAGREEMENT</span>.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="verdicts" aria-labelledby="verdict-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Verdict system</p>
+          <h2 class="section-title" id="verdict-title">Five verdicts, three-valued truth</h2>
+          <p class="sub">
+            <code class="mono">is_fake</code> is <code class="mono">true</code>,
+            <code class="mono">false</code> or <code class="mono">null</code>. A client that treats
+            <code class="mono">null</code> as <code class="mono">false</code> is a broken client.
+          </p>
+        </div>
+
+        <div class="verdicts" data-reveal>
+          <div class="verdict verdict--safe"><span class="verdict__name">SAFE</span><span class="verdict__range">0&ndash;39</span><span class="verdict__meta"><code>is_fake</code> boolean</span></div>
+          <div class="verdict verdict--suspicious"><span class="verdict__name">SUSPICIOUS</span><span class="verdict__range">40&ndash;69</span><span class="verdict__meta"><code>is_fake</code> boolean</span></div>
+          <div class="verdict verdict--high"><span class="verdict__name">HIGH_RISK</span><span class="verdict__range">70&ndash;100</span><span class="verdict__meta"><code>is_fake</code> boolean</span></div>
+          <div class="verdict verdict--lowconf"><span class="verdict__name">LOW_CONFIDENCE</span><span class="verdict__range">null + range</span><span class="verdict__meta"><code>is_fake: null</code> &middot; <strong>not SAFE</strong></span></div>
+          <div class="verdict verdict--error"><span class="verdict__name">ERROR</span><span class="verdict__range">null</span><span class="verdict__meta"><code>is_fake: null</code></span></div>
+        </div>
+
+        <div class="notice notice--key" data-reveal style="margin-top: 20px;">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>No failure path produces SAFE.</strong> Too little speech, a degraded channel, a model
+            throw, GPU out-of-memory, queue overflow or signal disagreement all land on
+            <span class="mono">LOW_CONFIDENCE</span> with <span class="mono">is_fake = null</span>. A missing
+            model file refuses to start the process. The rule is enforced in the database schema, in the
+            gate and in the test suite.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="profiles" aria-labelledby="profile-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Risk profiles</p>
+          <h2 class="section-title" id="profile-title">What a verdict costs</h2>
+          <p class="sub">Four profiles turn the same verdict into four different actions.</p>
+        </div>
+
+        <div class="table-wrap" data-reveal>
+          <table class="data">
+            <thead><tr><th scope="col">Profile</th><th scope="col">SUSPICIOUS</th><th scope="col">HIGH_RISK</th><th scope="col">LOW_CONFIDENCE</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Routine enquiry</strong></td><td>Log</td><td>Flag to agent</td><td>Log</td></tr>
+              <tr><td><strong>Account change</strong></td><td>Flag to agent</td><td>Hold + callback</td><td>Prompt secondary question</td></tr>
+              <tr><td><strong>High-value transfer</strong></td><td class="cell-warn">Hold + callback</td><td class="cell-bad">Block + escalate</td><td class="cell-warn"><strong>Hold + callback</strong></td></tr>
+              <tr><td><strong>Privileged access</strong></td><td class="cell-bad">Block + escalate</td><td class="cell-bad">Block + escalate</td><td class="cell-bad"><strong>Block + escalate</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="audit" aria-labelledby="audit-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Audit chain</p>
+          <h2 class="section-title" id="audit-title">Tamper-evident, and not a blockchain</h2>
+          <p class="sub">
+            Each entry carries the hash of the one before it, starting from a genesis hash of 64 zeros.
+            Verification does not just say &ldquo;broken&rdquo; &mdash; it names the sequence number of the
+            first entry that does not line up.
+          </p>
+        </div>
+
+        <div class="flow" data-reveal>
+          <div class="flow__node"><span class="flow__tag">01</span><span class="flow__name">Decision</span><p class="flow__note">Verdict, reason, profile, action.</p></div>
+          <div class="flow__node"><span class="flow__tag">02</span><span class="flow__name">Hash</span><p class="flow__note">SHA-256 over the payload plus the previous hash.</p></div>
+          <div class="flow__node"><span class="flow__tag">03</span><span class="flow__name">Append</span><p class="flow__note">Written once; rows are never updated.</p></div>
+          <div class="flow__node"><span class="flow__tag">04</span><span class="flow__name">Verify</span><p class="flow__note">Names the first broken <span class="mono">seq</span>.</p></div>
+          <div class="flow__node"><span class="flow__tag">05</span><span class="flow__name">Discard</span><p class="flow__note">The audio window leaves memory.</p></div>
+        </div>
+
+        <p class="source" data-reveal>
+          Three corruption paths are covered by tests: a rewritten payload, a forged header and an excised
+          row. Verification is exposed in the Console's Settings view, so it can be run in front of an
+          evaluator rather than described to one.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cta-title">
+      <div class="shell">
+        <div class="cta-band" data-reveal>
+          <p class="eyebrow">Evidence</p>
+          <h2 class="section-title" id="cta-title">Every number here is reproducible</h2>
+          <p class="sub">Nine benchmark harnesses, one reference machine, dates on everything.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="benchmarks.html">Open benchmarks</a>
+            <a class="btn btn--ghost" href="security.html">Security architecture</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img src="assets/logo.webp" alt="" width="34" height="34" />
+          <div>
+            <p class="foot-name">VoxShield</p>
+            <p class="foot-tag">Voice-cloning detection that says when it cannot tell.</p>
+          </div>
+        </div>
+        <div class="foot-col"><h3>Product</h3><a href="products.html">Overview</a><a href="products.html#mobile">Mobile</a><a href="console.html">Console</a><a href="products.html#sdk">SDK</a><a href="workflow.html">How a call is checked</a></div>
+        <div class="foot-col"><h3>Technical</h3><a href="technology.html">Detection pipeline</a><a href="technology.html#gate">Precondition gate</a><a href="technology.html#verdicts">Verdict system</a><a href="benchmarks.html">Measurements</a><a href="benchmarks.html#limitations">What we do not claim</a></div>
+        <div class="foot-col"><h3>Project</h3><a href="security.html">Security & privacy</a><a href="docs.html">Documentation</a><a href="components.html">Design system</a><a href="contact.html">Team</a><a href="console.html#access">Console access</a></div>
+      </div>
+      <p class="foot-legal">
+        Team Innovexa &middot; Smart India Hackathon 2026 &middot; PS 26104 &middot; AICTE Cyber Security Cell<br />
+        This website is informational and runs no detection. Every measured number on it is reproducible from
+        <code>benchmarks/results.md</code> in the Console repository; anything not measured is labelled.
+      </p>
+    </div>
+  </footer>
+
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="mobile-sheet" id="mobile-menu" aria-hidden="true" hidden>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="mobile-link" style="--i: 1;">Home</a>
+        <a href="products.html" class="mobile-link" style="--i: 2;">Products</a>
+        <div class="mobile-group"><h3>Products</h3><a href="products.html#mobile" class="mobile-link" style="--i: 3;">VoxShield Mobile</a><a href="products.html#console" class="mobile-link" style="--i: 4;">VoxShield Console</a><a href="products.html#sdk" class="mobile-link" style="--i: 5;">VoxShield SDK</a><a href="products.html#assistant" class="mobile-link" style="--i: 6;">VoxShield Assistant</a></div>
+        <a href="technology.html" class="mobile-link active" style="--i: 7;">Technology</a>
+        <a href="benchmarks.html" class="mobile-link" style="--i: 8;">Measurements</a>
+        <a href="security.html" class="mobile-link" style="--i: 9;">Security</a>
+        <a href="sih.html" class="mobile-link" style="--i: 10;">SIH</a>
+        <a href="docs.html" class="mobile-link" style="--i: 11;">Docs</a>
+        <div class="mobile-group"><h3>Docs</h3><a href="docs.html#technical" class="mobile-link" style="--i: 12;">Architecture & pipeline</a><a href="docs.html#security" class="mobile-link" style="--i: 13;">Security & privacy</a><a href="docs.html#evaluation" class="mobile-link" style="--i: 14;">Evaluation</a><a href="docs.html#integration" class="mobile-link" style="--i: 15;">Integration</a><a href="docs.html#project" class="mobile-link" style="--i: 16;">Project documents</a></div>
+        <a href="console.html" class="mobile-signin" style="--i: 17;">Open Console</a>
+    </nav>
+  </div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>How Voxshield Works — App Workflow | Voxshield</title>
+  <meta name="description" content="A product-level walkthrough of how Voxshield Mobile checks call audio for AI-cloned voices, on-device in real time." />
+  <meta name="theme-color" content="#f5f4f1" />
+  <meta name="color-scheme" content="light" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="apple-touch-icon" href="assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add("js");
+      window.setTimeout(function () {
+        if (!root.classList.contains("js-ready")) root.classList.remove("js");
+      }, 2500);
+    })();
+  </script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="backdrop" aria-hidden="true">
+    <canvas id="starfield"></canvas>
+    <div class="glow glow--a"></div>
+    <div class="glow glow--b"></div>
+    <div class="glow glow--c"></div>
+    <div class="noise"></div>
+  </div>
+
+  <header class="site-header" id="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Voxshield — home">
+        <img class="brand__mark" src="assets/logo.svg" alt="" width="34" height="34" />
+        <span class="brand__name">Voxshield</span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="site-nav" id="primary-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="index.html#products">Products</a></li>
+          <li><a class="site-nav__link" href="index.html#download">Download</a></li>
+          <li><a class="site-nav__link" href="workflow.html" aria-current="page">How it works</a></li>
+          <li><a class="site-nav__link" href="index.html#team">Team</a></li>
+          <li class="site-nav__cta"><a class="btn btn--primary btn--sm" href="index.html#download">Get the app</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow reveal">App detail · Voxshield Mobile</p>
+        <h1 class="page-hero__title reveal">How a call is checked</h1>
+        <p class="page-hero__lead reveal">
+          Voxshield Mobile works with the audio of an active phone call and looks for signs that the
+          voice on the other end is synthetic or cloned — running entirely on the device, in real time.
+        </p>
+
+        <div class="notice reveal" role="note">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>Product-level overview.</strong>
+            The stages below describe what the app does at a product level. Internal model
+            architecture, detection thresholds, and accuracy figures are not restated here —
+            the <span class="placeholder">VoxshieldMobile docs [PLACEHOLDER]</span> stay the source of truth.
+          </p>
+        </div>
+
+        <div class="hero__actions reveal">
+          <a class="btn btn--primary" href="index.html#download">Get the app</a>
+          <a class="btn btn--ghost" href="index.html#products">See the products</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="flow-title">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="eyebrow">The flow</p>
+          <h2 class="section__title" id="flow-title">From call audio to a warning</h2>
+          <p class="section__sub">
+            Each block is a stage in the detection path. The dashed branch is planned, not built.
+          </p>
+        </header>
+
+        <figure class="circuit reveal" data-circuit>
+          <svg
+            class="circuit__svg"
+            viewBox="0 0 1060 520"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            aria-labelledby="circuit-title circuit-desc"
+          >
+            <title id="circuit-title">Voxshield Mobile detection workflow</title>
+            <desc id="circuit-desc">
+              Call audio passes through preprocessing and voice analysis to an on-device verdict,
+              which produces a user alert. A separate dashed branch to an enterprise SDK is planned
+              and not built.
+            </desc>
+            <defs>
+              <pattern id="circuitDots" width="22" height="22" patternUnits="userSpaceOnUse">
+                <circle cx="11" cy="11" r="1" fill="rgba(20,22,27,0.1)" />
+              </pattern>
+              <filter id="circuitGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="3.2" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <rect class="circuit__grid" width="1060" height="520" fill="url(#circuitDots)" />
+            <g class="circuit__traces" data-traces></g>
+            <g class="circuit__nodes" data-nodes></g>
+          </svg>
+
+          <div class="circuit__legend">
+            <span class="legend legend--live">
+              <span class="legend__swatch" aria-hidden="true"></span>
+              <span class="legend__text">Runs on your device</span>
+            </span>
+            <span class="legend legend--processing">
+              <span class="legend__swatch" aria-hidden="true"></span>
+              <span class="legend__text">Processing stage</span>
+            </span>
+            <span class="legend legend--planned">
+              <span class="legend__swatch" aria-hidden="true"></span>
+              <span class="legend__text">Planned — not built</span>
+            </span>
+          </div>
+
+          <figcaption class="circuit__caption">
+            Illustrative product-level flow. Detection runs in the Android app — this website never
+            performs or proxies any detection.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="steps-title">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="eyebrow">Stage by stage</p>
+          <h2 class="section__title" id="steps-title">What happens, in order</h2>
+          <p class="section__sub">The same flow as the diagram, spelled out.</p>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">1</span>
+            <div>
+              <h3 class="step__title">Call audio</h3>
+              <p class="step__desc">
+                During an active phone call, Voxshield Mobile works with the call audio as it
+                arrives — there is no recording step and nothing to upload afterwards.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">2</span>
+            <div>
+              <h3 class="step__title">Preprocessing</h3>
+              <p class="step__desc">
+                Incoming audio is prepared for analysis as the call continues, so the check keeps
+                pace with the conversation rather than lagging behind it.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">3</span>
+            <div>
+              <h3 class="step__title">Voice analysis</h3>
+              <p class="step__desc">
+                The app looks for signs that the speech is synthetic or cloned rather than naturally
+                produced by a person speaking live.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">4</span>
+            <div>
+              <h3 class="step__title">On-device verdict</h3>
+              <p class="step__desc">
+                A result is produced on the phone itself. This is the core constraint of the design:
+                the detection runs locally, not by shipping your call to a server.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">5</span>
+            <div>
+              <h3 class="step__title">User alert</h3>
+              <p class="step__desc">
+                If the call looks like a suspected impersonation attempt, the app surfaces a warning
+                so you can act on it while the call is still happening.
+              </p>
+            </div>
+          </li>
+
+          <li class="step step--planned reveal">
+            <span class="step__num" aria-hidden="true">6</span>
+            <div>
+              <h3 class="step__title">
+                Enterprise SDK
+                <span class="step__tag">Planned</span>
+              </h3>
+              <p class="step__desc">
+                The same detection capability, offered as an API/SDK for banks, telecom, and
+                enterprise integration. This is on the roadmap and is not built — there is no
+                download, key, or sign-up today.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="fineprint reveal" style="margin-top:22px; max-width:76ch;">
+          Steps shown are a product-level description, not a specification of the internal
+          implementation. Model architecture, feature design, and measured accuracy belong to the
+          <span class="placeholder">VoxshieldMobile [PLACEHOLDER]</span> repository.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="device-title">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="eyebrow">Design constraint</p>
+          <h2 class="section__title" id="device-title">What stays on your device</h2>
+          <p class="section__sub">
+            The on-device requirement isn't a detail — it's the reason the approach is viable for
+            calls at all.
+          </p>
+        </header>
+
+        <div class="panels">
+          <div class="panel reveal">
+            <div class="panel__head">
+              <h3 class="panel__title">On-device by design</h3>
+              <span class="badge badge--built"><span class="badge__dot" aria-hidden="true"></span>Built</span>
+            </div>
+            <p class="panel__desc">
+              Detection runs in the Android app on the phone. Call audio is analyzed locally rather
+              than sent to a remote service for scoring.
+            </p>
+          </div>
+
+          <div class="panel reveal">
+            <div class="panel__head">
+              <h3 class="panel__title">This website</h3>
+              <span class="badge badge--here"><span class="badge__dot" aria-hidden="true"></span>You're here</span>
+            </div>
+            <p class="panel__desc">
+              Informational only. There is no demo widget, no upload field, and no backend here —
+              nothing on this site receives or processes audio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="panel panel--primary reveal">
+          <div class="panel__head">
+            <h2 class="panel__title" id="cta-title">Try it on the Android app</h2>
+            <span class="badge badge--built"><span class="badge__dot" aria-hidden="true"></span>Built</span>
+          </div>
+          <p class="panel__desc">
+            The Mobile app is where the detection actually runs. A stable public release isn't
+            published yet, so check back or grab it at the demo.
+          </p>
+          <div class="hero__actions" style="margin:0;">
+            <a class="btn btn--primary" href="index.html#download">Go to download</a>
+            <a class="btn btn--ghost" href="index.html#products">See the products</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer__brand">
+        <img class="brand__mark" src="assets/logo.svg" alt="" width="30" height="30" />
+        <div>
+          <p class="footer__name">Voxshield</p>
+          <p class="footer__tag">AI-Powered Real-Time Voice Cloning Detection</p>
+        </div>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="index.html#products">Products</a>
+        <a href="index.html#download">Download</a>
+        <a href="workflow.html">How it works</a>
+        <a href="index.html#team">Team</a>
+        <a href="#main">Back to top</a>
+      </nav>
+
+      <p class="footer__legal">
+        Team Innovexa · SIH 2026 · PS 26104 · AICTE Cyber Security Cell<br />
+        Static site — no backend, no accounts, no tracking.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
