@@ -276,9 +276,8 @@
         <div class="grid grid--2">
           <div data-reveal>
             <pre class="code"><code><span class="c"># Unzip voxshield-console.zip, then from that folder</span>
-make setup      <span class="c"># virtual environment + dependencies</span>
-make audit      <span class="c"># models are bundled; this checks their SHA-256</span>
-make run        <span class="c"># 127.0.0.1:8000, one worker</span>
+make setup      <span class="c"># virtual environment + dependencies (models are already bundled)</span>
+make run       <span class="c"># 127.0.0.1:8000, one worker</span>
 
 make test       <span class="c"># 351 passed, 1 skipped</span>
 make coverage   <span class="c"># 91.97%</span>
