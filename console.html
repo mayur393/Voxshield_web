@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Console — VoxShield</title>
+  <meta name="description" content="VoxShield Console: detection, decision, mitigation and auditability on one offline laptop — plus the enterprise layer and its current build state." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="icon" type="image/webp" href="assets/logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <script src="main.js" defer></script>
+  <script src="ascii.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared background: one looping video behind every page -->
+  <div class="bg" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <div class="page-header">
+    <header class="header">
+      <a href="index.html" class="logo-btn" aria-label="VoxShield, home">
+        <img src="assets/logo.webp" alt="" width="52" height="52" class="logo-img" />
+      </a>
+
+      <nav class="nav-pill" aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li class="has-menu"><a href="products.html" class="nav-link">Products</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Products menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="products.html#mobile">VoxShield Mobile<span>On-device Android detection</span></a><a href="products.html#console">VoxShield Console<span>Detect, decide, respond</span></a><a href="products.html#sdk">VoxShield SDK<span>Planned integration layer</span></a><a href="products.html#assistant">VoxShield Assistant<span>Grounded answers, or none</span></a></div></li>
+          <li><a href="technology.html" class="nav-link">Technology</a></li>
+          <li><a href="benchmarks.html" class="nav-link">Measurements</a></li>
+          <li><a href="security.html" class="nav-link">Security</a></li>
+          <li><a href="sih.html" class="nav-link">SIH</a></li>
+          <li class="has-menu"><a href="docs.html" class="nav-link">Docs</a><button class="nav-trigger" type="button" aria-expanded="false" aria-label="Open Docs menu"><span class="caret" aria-hidden="true"></span></button><div class="nav-menu" data-open="false"><a href="docs.html#technical">Architecture & pipeline<span>Gate, fusion, verdicts</span></a><a href="docs.html#security">Security & privacy<span>Audit chain, retention</span></a><a href="docs.html#evaluation">Evaluation<span>Measurements and limits</span></a><a href="docs.html#integration">Integration<span>API contract and wire format</span></a><a href="docs.html#project">Project documents<span>PRD, TRD, SIH material</span></a></div></li>
+        </ul>
+      </nav>
+
+      <a href="console.html" class="signin-btn">Console</a>
+
+      <button class="burger-btn" id="burger-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </header>
+  </div>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">VoxShield Console</p>
+          <h1 class="page-title">Detect. Decide.<br />Respond.</h1>
+          <p class="lead">
+            The Console is where a verdict becomes a decision. It runs on one laptop, offline, with one
+            process and one GPU worker &mdash; and it is honest on screen about which of its answers it
+            actually trusts.
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#access">How access works</a>
+            <a class="btn btn--ghost" href="technology.html">The pipeline behind it</a>
+          </div>
+        </div>
+
+        <div class="notice notice--warn" data-reveal style="--d: 0.08s;" role="note">
+          <span class="notice__icon" aria-hidden="true">!</span>
+          <p>
+            <strong>There is no hosted Console to sign in to.</strong> It binds to
+            <span class="mono">127.0.0.1:8000</span> on the machine that runs it, by design &mdash; that is
+            what &ldquo;offline&rdquo; means here. This page is the tour; the running system is on the demo
+            laptop.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="views" aria-labelledby="views-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Inside the Console</p>
+          <h2 class="section-title" id="views-title">What is on screen today</h2>
+          <p class="sub">The v1.0 console, built and tested. Each view is plain HTML and vanilla JS.</p>
+        </div>
+
+        <div class="grid grid--3">
+          <article class="card" data-reveal>
+            <div class="card__head"><h3 class="card__title">Dashboard</h3><span class="badge badge--implemented">Built</span></div>
+            <p class="card__desc">
+              Live call cards in all five verdict states, signal bars ordered by fusion weight, a sparkline
+              with real gaps where windows were refused, and the risk-profile selector.
+            </p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.05s;">
+            <div class="card__head"><h3 class="card__title">Alerts</h3><span class="badge badge--implemented">Built</span></div>
+            <p class="card__desc">Verdicts that crossed a threshold, with the reason code and the prescribed action beside them.</p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.1s;">
+            <div class="card__head"><h3 class="card__title">Analytics &amp; reports</h3><span class="badge badge--implemented">Built</span></div>
+            <p class="card__desc">Verdict distribution over time, including how often the system refused to answer &mdash; which is a number worth watching.</p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.15s;">
+            <div class="card__head"><h3 class="card__title">Settings &amp; audit</h3><span class="badge badge--implemented">Built</span></div>
+            <p class="card__desc">Enrolments, retention, and a verify-audit panel that reports either an intact chain or the sequence number where it broke.</p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.2s;">
+            <div class="card__head"><h3 class="card__title">System</h3><span class="badge badge--implemented">Built</span></div>
+            <p class="card__desc">Model hashes, device and VRAM, offline indicator, and the health endpoint's report of which alert mode is live.</p>
+          </article>
+          <article class="card" data-reveal style="--d: 0.25s;">
+            <div class="card__head"><h3 class="card__title">Assistant</h3><span class="badge badge--implemented">Built</span></div>
+            <p class="card__desc">
+              Grounded Q&amp;A with citations, plus a <span class="mono">?</span> control on each verdict card
+              that pre-fills the question for that card's reason code.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="enterprise" aria-labelledby="ent-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Enterprise layer</p>
+          <h2 class="section-title" id="ent-title">The layer that wraps the core</h2>
+          <p class="sub">
+            Multi-tenant sign-in, mobile recordings, incidents and mitigation. It never edits the detection
+            core and never widens a claim the core makes. Dashed links below are
+            <span class="annot annot--warn" data-annot="underline">specified, not built</span>.
+          </p>
+        </div>
+
+        <figure class="circuit" data-circuit data-width="980" data-height="360" data-pulse-speed="2.6" data-reveal>
+          <script type="application/json">
+            {
+              "nodes": [
+                { "id": "device", "x": 95, "y": 80, "label": "Mobile device", "note": "Registered source", "icon": "fa-solid fa-mobile-screen", "state": "planned" },
+                { "id": "agent", "x": 95, "y": 265, "label": "Agent / operator", "note": "Signed in", "icon": "fa-solid fa-headset", "state": "safe" },
+                { "id": "auth", "x": 300, "y": 175, "label": "Auth + RBAC", "note": "Session, role, tenant", "icon": "fa-solid fa-key", "state": "safe" },
+                { "id": "core", "x": 500, "y": 175, "label": "Detection core", "note": "Gate, fusion, verdict", "icon": "fa-solid fa-shield-halved", "state": "gate" },
+                { "id": "risk", "x": 700, "y": 80, "label": "Risk event", "note": "Verdict + profile", "icon": "fa-solid fa-triangle-exclamation", "state": "planned" },
+                { "id": "audit", "x": 700, "y": 265, "label": "Audit chain", "note": "Append-only", "icon": "fa-solid fa-link", "state": "safe" },
+                { "id": "incident", "x": 890, "y": 80, "label": "Incident", "note": "Assign, review", "icon": "fa-solid fa-clipboard-list", "state": "planned" },
+                { "id": "outbox", "x": 890, "y": 265, "label": "Alert outbox", "note": "SMTP off by default", "icon": "fa-solid fa-inbox", "state": "planned" }
+              ],
+              "connections": [
+                { "from": "device", "to": "auth", "animated": true, "planned": true },
+                { "from": "agent", "to": "auth", "animated": true },
+                { "from": "auth", "to": "core", "animated": true },
+                { "from": "core", "to": "risk", "animated": true, "planned": true },
+                { "from": "core", "to": "audit", "animated": true },
+                { "from": "risk", "to": "incident", "animated": true, "planned": true },
+                { "from": "incident", "to": "outbox", "animated": true, "planned": true }
+              ]
+            }
+          </script>
+          <div class="circuit__legend">
+            <span><i class="circuit__key" aria-hidden="true"></i> Built</span>
+            <span><i class="circuit__key circuit__key--gate" aria-hidden="true"></i> Detection core, unchanged by this layer</span>
+            <span><i class="circuit__key circuit__key--planned" aria-hidden="true"></i> Specified, not built</span>
+          </div>
+          <figcaption>
+            Sign-in, roles and tenant scoping are implemented. Mobile recording ingest, risk events,
+            incidents and the alert outbox are written up in the enterprise specification and are not built
+            yet &mdash; so they are drawn dashed rather than shown as working.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="login" aria-labelledby="login-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Enterprise sign-in</p>
+          <h2 class="section-title" id="login-title">Four steps, checked in the backend</h2>
+          <p class="sub">
+            Seven auth endpoints are implemented. Authorisation is resolved in a dependency before the
+            handler body runs &mdash; a hidden button is a convenience, not a control.
+          </p>
+        </div>
+
+        <ol class="steps">
+          <li class="step" data-reveal>
+            <span class="step__num" aria-hidden="true">01</span>
+            <div>
+              <h3 class="step__title">Enterprise identify <span class="badge badge--implemented">Built</span></h3>
+              <p class="step__desc">An email domain resolves to its enterprise. The lookup is one of only two cross-tenant queries in the system, and it is marked as such in the source.</p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step__num" aria-hidden="true">02</span>
+            <div>
+              <h3 class="step__title">OTP request and verify <span class="badge badge--implemented">Built</span></h3>
+              <p class="step__desc">Codes are generated with <span class="mono">secrets</span>, compared with <span class="mono">hmac.compare_digest</span>, rate-limited and expiring. The plaintext code is never stored. A timeout is a failure, never a pass.</p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step__num" aria-hidden="true">03</span>
+            <div>
+              <h3 class="step__title">Employee login <span class="badge badge--implemented">Built</span></h3>
+              <p class="step__desc">Password (scrypt) or OTP, then a session token that is stored only as a hash. Sessions can be revoked, and there is an absolute cap on lifetime.</p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step__num" aria-hidden="true">04</span>
+            <div>
+              <h3 class="step__title">Role-based console <span class="badge badge--implemented">Built</span></h3>
+              <p class="step__desc">Platform admin, enterprise admin, security, bank and agent. Every tenant query takes the enterprise id first, and CSRF is checked inside the principal resolver.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="actions" data-reveal>
+          <a class="btn btn--ghost" href="security.html#access">The full permission matrix</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="status" aria-labelledby="status-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Build state</p>
+          <h2 class="section-title" id="status-title">What exists, honestly</h2>
+          <p class="sub">
+            The project distinguishes code that is written and tested from work a human has accepted
+            against its criteria. That distinction is kept here rather than flattened into &ldquo;done&rdquo;.
+          </p>
+        </div>
+
+        <div class="table-wrap" data-reveal>
+          <table class="data">
+            <thead><tr><th scope="col">Area</th><th scope="col">State</th><th scope="col">Detail</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Detection pipeline</strong></td><td><span class="badge badge--implemented">Built</span></td><td>Ingest, VAD, gate, signals, fusion, verdicts, profile actions.</td></tr>
+              <tr><td><strong>Audit chain</strong></td><td><span class="badge badge--implemented">Built</span></td><td>Hash-chained, with three corruption paths covered by tests.</td></tr>
+              <tr><td><strong>API surface</strong></td><td><span class="badge badge--implemented">Built</span></td><td>17 endpoints &mdash; 14 REST, 3 WebSocket &mdash; one identical JSON object.</td></tr>
+              <tr><td><strong>Console views</strong></td><td><span class="badge badge--implemented">Built</span></td><td>Dashboard, alerts, analytics, reports, settings, system, assistant.</td></tr>
+              <tr><td><strong>Assistant</strong></td><td><span class="badge badge--implemented">Built</span></td><td>Grounded retrieval with citations, refusal discipline, 28 tests.</td></tr>
+              <tr><td><strong>Enterprise schema &amp; tenancy</strong></td><td><span class="badge badge--implemented">Built</span></td><td>16 tables, idempotent migration, every repository function scoped by enterprise.</td></tr>
+              <tr><td><strong>Auth, sessions, RBAC</strong></td><td><span class="badge badge--implemented">Built</span></td><td>7 endpoints, scrypt, CSRF in the principal resolver, 36 security tests.</td></tr>
+              <tr><td><strong>Alert outbox</strong></td><td><span class="badge badge--wip">In progress</span></td><td>Core built and carrying OTP delivery; incident templates and the redaction test remain.</td></tr>
+              <tr><td><strong>Admin API</strong></td><td><span class="badge badge--spec">Specified</span></td><td>Enterprises, employees, domains and contacts. Not built.</td></tr>
+              <tr><td><strong>Mobile device ingest</strong></td><td><span class="badge badge--spec">Specified</span></td><td>Device tokens and recording upload into the existing pipeline. Not built.</td></tr>
+              <tr><td><strong>Mitigation engine</strong></td><td><span class="badge badge--spec">Specified</span></td><td>Consumes the existing action matrix rather than defining a second policy. Not built.</td></tr>
+              <tr><td><strong>Verification &amp; incidents</strong></td><td><span class="badge badge--spec">Specified</span></td><td>Step-up OTP, incident status machine, append-only notes. Not built.</td></tr>
+              <tr><td><strong>Human acceptance pass</strong></td><td><span class="badge badge--wip">Outstanding</span></td><td>Code is tested, but the walk-through against the acceptance criteria has not been signed off.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="access" aria-labelledby="access-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Access</p>
+          <h2 class="section-title" id="access-title">How to actually open it</h2>
+          <p class="sub">There is nothing to sign up for. The Console is run locally from the repository.</p>
+        </div>
+
+        <div class="grid grid--2">
+          <div data-reveal>
+            <pre class="code"><code><span class="c"># From the Console repository, on the demo machine</span>
+make setup      <span class="c"># virtual environment + dependencies</span>
+make models     <span class="c"># download weights, record SHA-256 in MANIFEST.json</span>
+make run        <span class="c"># 127.0.0.1:8000, one worker</span>
+
+make test       <span class="c"># 351 passed, 1 skipped</span>
+make coverage   <span class="c"># 91.97%</span>
+make audit      <span class="c"># 21 permissive deps, 15/15 model hashes</span></code></pre>
+          </div>
+          <div class="grid" data-reveal style="--d: 0.06s;">
+            <article class="card card--flat">
+              <div class="card__head"><h3 class="card__title">At the demo</h3><span class="badge badge--here">In person</span></div>
+              <p class="card__desc">
+                A mock telephony tool replays a WAV in real time into the Console, which produces one verdict
+                per second, renders the correct card state, and appends every decision to the audit chain
+                &mdash; with the network disconnected.
+              </p>
+            </article>
+            <article class="card card--flat">
+              <div class="card__head"><h3 class="card__title">For evaluators</h3><span class="badge badge--measured">Reproducible</span></div>
+              <p class="card__desc">
+                Nine benchmark harnesses regenerate every number this site publishes, on the reference
+                machine named on the benchmarks page.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cta-title">
+      <div class="shell">
+        <div class="cta-band" data-reveal>
+          <p class="eyebrow">Next</p>
+          <h2 class="section-title" id="cta-title">See the evidence behind the screen</h2>
+          <p class="sub">Measured numbers, dataset by dataset &mdash; including the ones that argue against us.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="benchmarks.html">Benchmarks</a>
+            <a class="btn btn--ghost" href="security.html">Security &amp; privacy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img src="assets/logo.webp" alt="" width="34" height="34" />
+          <div>
+            <p class="foot-name">VoxShield</p>
+            <p class="foot-tag">Voice-cloning detection that says when it cannot tell.</p>
+          </div>
+        </div>
+        <div class="foot-col"><h3>Product</h3><a href="products.html">Overview</a><a href="products.html#mobile">Mobile</a><a href="console.html">Console</a><a href="products.html#sdk">SDK</a><a href="workflow.html">How a call is checked</a></div>
+        <div class="foot-col"><h3>Technical</h3><a href="technology.html">Detection pipeline</a><a href="technology.html#gate">Precondition gate</a><a href="technology.html#verdicts">Verdict system</a><a href="benchmarks.html">Measurements</a><a href="benchmarks.html#limitations">What we do not claim</a></div>
+        <div class="foot-col"><h3>Project</h3><a href="security.html">Security & privacy</a><a href="docs.html">Documentation</a><a href="components.html">Design system</a><a href="contact.html">Team</a><a href="console.html#access">Console access</a></div>
+      </div>
+      <p class="foot-legal">
+        Team Innovexa &middot; Smart India Hackathon 2026 &middot; PS 26104 &middot; AICTE Cyber Security Cell<br />
+        This website is informational and runs no detection. Every measured number on it is reproducible from
+        <code>benchmarks/results.md</code> in the Console repository; anything not measured is labelled.
+      </p>
+    </div>
+  </footer>
+
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="mobile-sheet" id="mobile-menu" aria-hidden="true" hidden>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="mobile-link" style="--i: 1;">Home</a>
+        <a href="products.html" class="mobile-link" style="--i: 2;">Products</a>
+        <div class="mobile-group"><h3>Products</h3><a href="products.html#mobile" class="mobile-link" style="--i: 3;">VoxShield Mobile</a><a href="products.html#console" class="mobile-link" style="--i: 4;">VoxShield Console</a><a href="products.html#sdk" class="mobile-link" style="--i: 5;">VoxShield SDK</a><a href="products.html#assistant" class="mobile-link" style="--i: 6;">VoxShield Assistant</a></div>
+        <a href="technology.html" class="mobile-link" style="--i: 7;">Technology</a>
+        <a href="benchmarks.html" class="mobile-link" style="--i: 8;">Measurements</a>
+        <a href="security.html" class="mobile-link" style="--i: 9;">Security</a>
+        <a href="sih.html" class="mobile-link" style="--i: 10;">SIH</a>
+        <a href="docs.html" class="mobile-link" style="--i: 11;">Docs</a>
+        <div class="mobile-group"><h3>Docs</h3><a href="docs.html#technical" class="mobile-link" style="--i: 12;">Architecture & pipeline</a><a href="docs.html#security" class="mobile-link" style="--i: 13;">Security & privacy</a><a href="docs.html#evaluation" class="mobile-link" style="--i: 14;">Evaluation</a><a href="docs.html#integration" class="mobile-link" style="--i: 15;">Integration</a><a href="docs.html#project" class="mobile-link" style="--i: 16;">Project documents</a></div>
+        <a href="console.html" class="mobile-signin" style="--i: 17;">Open Console</a>
+    </nav>
+  </div>
+</body>
+</html>
